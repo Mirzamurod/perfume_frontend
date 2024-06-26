@@ -1,0 +1,36 @@
+{
+  "name": "atir_frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@reduxjs/toolkit": "^2.2.5",
+    "axios": "^1.7.2",
+    "flag-icons": "^7.2.3",
+    "framer-motion": "^11.2.12",
+    "js-base64": "^3.7.7",
+    "next": "^14.2.4",
+    "next-i18next": "^15.3.0",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-redux": "^9.1.2",
+    "react-toastify": "^10.0.5",
+    "sass": "^1.77.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}
