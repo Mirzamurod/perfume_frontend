@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { elTop, registerUser } from '@/store/apis'
+import { perfume, registerUser } from '@/store/apis'
 import { IRegister } from '@/types/user'
 
 const initialState: IRegister = { isLoading: false, success: false, error: null }
@@ -25,7 +25,7 @@ const register = createSlice({
 })
 
 export const addUser = (data: any) =>
-  elTop({
+  perfume({
     url: registerUser,
     method: 'post',
     data,

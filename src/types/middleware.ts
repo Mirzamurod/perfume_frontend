@@ -1,4 +1,4 @@
-export type TEltop = {
+export type TPerfume = {
   /**
    * link
    */

@@ -1,6 +1,5 @@
 // React Import
-import { Fragment, ReactNode, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { ReactNode, useEffect } from 'react'
 
 // React-i18next
 import i18next from 'i18next'
@@ -8,12 +7,10 @@ import { initReactI18next } from 'react-i18next'
 import { us, ru, uz } from '@/languages'
 
 // Store
-import { RootState } from '@/store'
 
 // chakra ui
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme'
-import { ToastContainer } from 'react-toastify'
 
 if (typeof window !== 'undefined')
   i18next.use(initReactI18next).init({
@@ -28,20 +25,18 @@ if (typeof window !== 'undefined')
   })
 
 const ThemeComponent = ({ children }: { children: ReactNode }) => {
-  const { mode } = useSelector((state: RootState) => state.login)
-
   useEffect(() => {
     if (!localStorage.getItem('lang'))
       localStorage.setItem('lang', JSON.stringify({ lang: 'us', name: 'Eng' }))
   }, [])
 
   return (
-    <Fragment>
-      <ChakraProvider theme={theme}>
-        {children}
-        <ToastContainer theme={mode} position='top-right' />
-      </ChakraProvider>
-    </Fragment>
+    <ChakraProvider
+      theme={theme}
+      toastOptions={{ defaultOptions: { isClosable: true, position: 'top-right' } }}
+    >
+      {children}
+    </ChakraProvider>
   )
 }
 

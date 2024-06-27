@@ -17,7 +17,7 @@ const GuestGuard: FC<GuestGuard> = props => {
   const auth = useAuth()
   const router = useRouter()
 
-  const { user } = useSelector((state: RootState) => state.login)
+  // const { user } = useSelector((state: RootState) => state.login)
 
   useEffect(() => {
     if (!router.isReady) {
@@ -29,8 +29,8 @@ const GuestGuard: FC<GuestGuard> = props => {
     // }
   }, [router.route])
 
-  // if (auth.loading || (!auth.loading && user !== null)) {
-  if (auth.loading) {
+  if (auth.loading || (!auth.loading && auth.user !== null)) {
+    // if (auth.loading) {
     return fallback
   }
 

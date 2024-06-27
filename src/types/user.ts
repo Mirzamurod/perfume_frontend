@@ -1,14 +1,15 @@
+import { TError } from "./error"
+
 export type UserDataType = {
   id: number | string
   role: string
-  phone_number: string
+  phone: string
 }
 
 export interface IUserStore {
   isLoading: boolean
   user: UserDataType | null
-  error: any | null
-  mode: 'dark' | 'light'
+  errors: TError[] | null
   token: boolean
   success: boolean
 }

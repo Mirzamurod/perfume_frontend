@@ -1,18 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { encode } from 'js-base64'
-import { elTop, loginUser, userdelete, userprofile, userupdate } from '@/store/apis'
+import { perfume, loginUser, userdelete, userprofile, userupdate } from '@/store/apis'
 import { IUserStore } from '@/types/user'
 
 const initialState: IUserStore = {
   isLoading: false,
   user: null,
   token: false,
-  error: null,
+  errors: null,
   success: false,
-  mode:
-    typeof window !== 'undefined'
-      ? (window.localStorage.getItem('mode') as 'light' | 'dark') ?? 'light'
-      : 'light',
 }
 
 const login = createSlice({
@@ -25,7 +21,7 @@ const login = createSlice({
       state.success = false
     },
     onSuccess: (state, { payload }) => {
-      localStorage.setItem('elTop', encode(payload.messages))
+      localStorage.setItem('perfume', encode(payload.messages))
       state.token = true
       state.isLoading = false
       state.success = true
@@ -33,7 +29,6 @@ const login = createSlice({
     userProfile: (state, { payload }) => {
       state.isLoading = false
       state.user = payload.data
-      state.mode = payload.data.mode
     },
     userUpdate: (state, { payload }) => {
       state.isLoading = false
@@ -43,22 +38,21 @@ const login = createSlice({
     },
     onFail: (state, { payload }) => {
       state.isLoading = false
-    },
-    changeMode: state => {
-      state.mode = state.mode === 'dark' ? 'light' : 'dark'
+      state.errors = payload.messages
+      state.success = payload.success
     },
     getUserData: (state, { payload }) => {
       state.user = payload
     },
     deleteUser: state => {
       state.user = null
-      localStorage.removeItem('elTop')
+      localStorage.removeItem('perfume')
     },
   },
 })
 
 export const userLogin = (data: any) =>
-  elTop({
+  perfume({
     url: loginUser,
     method: 'post',
     data,
@@ -68,7 +62,7 @@ export const userLogin = (data: any) =>
   })
 
 export const userProfile = () =>
-  elTop({
+  perfume({
     url: userprofile,
     method: 'get',
     onStart: login.actions.onStart.type,
@@ -77,7 +71,7 @@ export const userProfile = () =>
   })
 
 export const userUpdate = (data: any) =>
-  elTop({
+  perfume({
     url: userupdate,
     method: 'put',
     data,
@@ -87,7 +81,7 @@ export const userUpdate = (data: any) =>
   })
 
 export const userDelete = (data: any) =>
-  elTop({
+  perfume({
     url: userdelete,
     method: 'post',
     data,
@@ -96,6 +90,6 @@ export const userDelete = (data: any) =>
     onFail: login.actions.onFail.type,
   })
 
-export const { changeMode, getUserData, deleteUser } = login.actions
+export const { getUserData, deleteUser } = login.actions
 
 export default login.reducer

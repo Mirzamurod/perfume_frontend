@@ -68,10 +68,10 @@ const App = (props: ExtendedAppProps) => {
   return (
     <Provider store={store}>
       <Head>
-        <title>Eltop</title>
+        <title>Perfume</title>
         <meta name='description' />
-        <link rel='icon' href='/eltop.png' />
-        <meta name='keywords' content='Eltop, eltop, ...' />
+        <link rel='icon' href='/images/logo/logo.png' />
+        <meta name='keywords' content='Perfume, perfume, ...' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
       </Head>
 

@@ -1,13 +1,17 @@
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { TEltop } from '@/types/middleware'
+import { TPerfume } from '@/types/middleware'
 import { decode } from 'js-base64'
+import { useToast } from '@chakra-ui/react'
+import { useLanguage } from '@/context/LanguageContext'
 
 const middleware =
   ({ dispatch }: { dispatch: any }) =>
   (next: any) =>
-  (action: { type: string; payload: TEltop }) => {
-    if (action.type !== 'elTop') {
+  (action: { type: string; payload: TPerfume }) => {
+    // const toast = useToast()
+    // const { language } = useLanguage()
+
+    if (action.type !== 'perfume') {
       next(action)
       return
     }
@@ -16,19 +20,16 @@ const middleware =
 
     const { url, method, params, data, onStart, onSuccess, onFail } = action.payload
 
-    const token = localStorage.getItem('elTop')
-    const lang = JSON.parse(localStorage.getItem('lang')!)
+    const token = localStorage.getItem('perfume')
 
     const headers = token ? { Authorization: `Bearer ${decode(token)}` } : null
-    // const headers = token ? { Authorization: `Bearer ${token}` } : null
 
     dispatch({ type: onStart })
 
     // @ts-ignore
     axios({
-      baseURL: process.env.BACKEND_URL,
+      baseURL: 'http://localhost:5000/api/',
       method,
-      // data: { ...data, token: 'string' },
       data,
       url,
       params,
@@ -40,13 +41,13 @@ const middleware =
         else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {
-        if (error?.response?.status === 400) {
-          const data = error?.response?.data
-          if (typeof data?.message === 'string') toast.warn(data?.message)
-          else toast.warn(data?.message?.[lang.lang])
-        } else toast.error('Something went wrong')
-
-        dispatch({ type: onFail, payload: error })
+        const data = error?.response?.data
+        if (data?.message)
+        // if (error?.response?.status === 400) {
+        //   if (typeof data?.message === 'string') toast({ status: 'warning', title: data?.message })
+        //   else toast({ status: 'warning', title: data?.message?.[language.lang] })
+        // } else toast({ status: 'warning', title: data?.message })
+        dispatch({ type: onFail, payload: error?.response?.data })
       })
   }
 

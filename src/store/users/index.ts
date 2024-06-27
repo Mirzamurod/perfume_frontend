@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { elTop, getUsersApi } from '@/store/apis'
+import { perfume, getUsersApi } from '@/store/apis'
 import { TUsersState } from '@/types/users'
 
 const initialState: TUsersState = {
@@ -24,14 +24,14 @@ const users = createSlice({
       state.users = payload.items
       state.count = payload.total_items
     },
-    onFailGetUsers: (state, { payload }) => {
+    onFailGetUsers: state => {
       state.isLoading = false
     },
   },
 })
 
 export const getUsers = (params?: any) =>
-  elTop({
+  perfume({
     url: getUsersApi,
     method: 'get',
     params,

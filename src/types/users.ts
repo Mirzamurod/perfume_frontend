@@ -5,4 +5,4 @@ export type TUsersState = {
   count: number
 }
 
-export type TUser = { id: number; phone_number: string; role: string }
+export type TUser = { id: number; phone: string; role: string }

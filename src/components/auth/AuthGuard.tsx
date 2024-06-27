@@ -27,7 +27,7 @@ const AuthGuard = (props: AuthGuardProps) => {
     }
 
     if (typeof window !== 'undefined') {
-      if (user === null && !window.localStorage.getItem('elTop')!) {
+      if (user === null && !window.localStorage.getItem('perfume')!) {
         if (router.asPath !== '/') {
           router.replace({
             pathname: '/',

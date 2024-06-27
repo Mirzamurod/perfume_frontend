@@ -1,15 +1,15 @@
 import { createAction } from '@reduxjs/toolkit'
-import { TEltop } from '@/types/middleware'
+import { TPerfume } from '@/types/middleware'
 
-export const elTop = createAction<TEltop>('elTop')
+export const perfume = createAction<TPerfume>('perfume')
 
 // users
-export const registerUser = 'user/create'
-export const loginUser = 'user/login'
-export const userprofile = 'user/return/user'
-export const userupdate = 'user/update'
-export const userdelete = 'user/delete'
-export const getUsersApi = 'user/get/all'
+export const register = 'users'
+export const loginUser = 'users/login'
+export const userprofile = 'users'
+export const userupdate = 'users/update'
+export const userdelete = 'users/delete'
+export const getUsersApi = 'users/get/all'
 
 // products
 export const getproducts = 'product/get/all'

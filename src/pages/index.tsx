@@ -6,6 +6,4 @@ const Home = () => {
   return <Button onClick={toggleColorMode}>Click me {colorMode}</Button>
 }
 
-Home.guestGuard = true
-
 export default Home

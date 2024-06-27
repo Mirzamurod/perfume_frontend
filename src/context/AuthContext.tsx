@@ -48,11 +48,11 @@ const AuthProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
-      let tokenLocal = window.localStorage.getItem('elTop')!
+      let tokenLocal = window.localStorage.getItem('perfume')!
       if (token || tokenLocal) {
         setLoading(true)
         await axios({
-          baseURL: `${backend_url}user/return/user`,
+          baseURL: `${backend_url}users/profile`,
           headers: { Token: 'Bearer ' + decode(tokenLocal) },
         })
           .then(res => {
@@ -60,7 +60,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
             dispatch(getUserData(res.data.message))
           })
           .catch(() => {
-            localStorage.removeItem('elTop')
+            localStorage.removeItem('perfume')
             setLoading(false)
             if (!router.pathname.includes('login')) {
               router.replace('/')
