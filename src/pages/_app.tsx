@@ -3,6 +3,7 @@ import { Fragment, ReactNode } from 'react'
 
 // Next Imports
 import type { NextPage } from 'next'
+import { Router } from 'next/router'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
@@ -10,6 +11,7 @@ import Head from 'next/head'
 import { appWithTranslation } from 'next-i18next'
 
 // Loader Import
+import NProgress from 'nprogress'
 import NextNProgress from 'nextjs-progressbar'
 
 // Config Imports
@@ -24,6 +26,8 @@ import WindowWrapper from '@/components/window-wrapper'
 import { AuthProvider } from '@/context/AuthContext'
 import { LanguageProvider } from '@/context/LanguageContext'
 import Loading from '@/components/Loading'
+import { I18nextProvider } from 'react-i18next'
+import i18n from '@/languages/i18n'
 
 // Css
 import 'react-toastify/dist/ReactToastify.css'
@@ -38,6 +42,19 @@ type GuardProps = {
   authGuard: boolean
   guestGuard: boolean
   children: ReactNode
+}
+
+// Pace Loader
+if (themeConfig.routingLoader) {
+  Router.events.on('routeChangeStart', () => {
+    NProgress.start()
+  })
+  Router.events.on('routeChangeError', () => {
+    NProgress.done()
+  })
+  Router.events.on('routeChangeComplete', () => {
+    NProgress.done()
+  })
 }
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
@@ -76,16 +93,18 @@ const App = (props: ExtendedAppProps) => {
       </Head>
 
       <LanguageProvider>
-        <AuthProvider>
-          <ThemeComponent>
-            <WindowWrapper>
-              <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                <NextNProgress color={themeConfig.themeColor} />
-                <Fragment>{getLayout(<Component {...pageProps} />)}</Fragment>
-              </Guard>
-            </WindowWrapper>
-          </ThemeComponent>
-        </AuthProvider>
+        <I18nextProvider i18n={i18n}>
+          <AuthProvider>
+            <ThemeComponent>
+              <WindowWrapper>
+                <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                  <NextNProgress color={themeConfig.themeColor} />
+                  {getLayout(<Component {...pageProps} />)}
+                </Guard>
+              </WindowWrapper>
+            </ThemeComponent>
+          </AuthProvider>
+        </I18nextProvider>
       </LanguageProvider>
     </Provider>
   )

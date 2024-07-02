@@ -21,7 +21,7 @@ const login = createSlice({
       state.success = false
     },
     onSuccess: (state, { payload }) => {
-      localStorage.setItem('perfume', encode(payload.messages))
+      localStorage.setItem('perfume', encode(payload.data.token))
       state.token = true
       state.isLoading = false
       state.success = true
@@ -38,8 +38,8 @@ const login = createSlice({
     },
     onFail: (state, { payload }) => {
       state.isLoading = false
-      state.errors = payload.messages
-      state.success = payload.success
+      state.errors = payload?.messages
+      state.success = payload?.success
     },
     getUserData: (state, { payload }) => {
       state.user = payload

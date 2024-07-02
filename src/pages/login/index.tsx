@@ -1,4 +1,5 @@
-import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -15,11 +16,11 @@ import {
 import { TRegister } from '@/types/register'
 import { userLogin } from '@/store/user/login'
 import { useAppSelector } from '@/store'
-import { useEffect } from 'react'
+import { TranslationKeys, t } from '@/languages/Eng'
 
 const Login = () => {
-  const { t } = useTranslation()
   const dispatch = useDispatch()
+  const router = useRouter()
   const formSchema = yup.object().shape({
     phone: yup.string().required(t('phone_required')),
     password: yup.string().required(t('password_required')),
@@ -32,17 +33,21 @@ const Login = () => {
   } = useForm({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { phone: '', password: '' },
+    defaultValues: { phone: '+998946565706', password: 'Test123!@#' },
   })
 
-  const { errors: loginErrors } = useAppSelector(state => state.login)
+  const { errors: loginErrors, success, isLoading } = useAppSelector(state => state.login)
 
   useEffect(() => {
     if (loginErrors?.length)
       loginErrors?.map(item =>
-        setError(item.path as 'phone', { type: 'value', message: t(item.msg) })
+        setError(item.path as 'phone', { type: 'value', message: t(item.msg as TranslationKeys) })
       )
   }, [loginErrors])
+
+  useEffect(() => {
+    if (success) router.replace('/')
+  }, [success])
 
   const onSubmit = (values: TRegister) => {
     dispatch(userLogin(values))
@@ -65,8 +70,8 @@ const Login = () => {
                 <FormErrorMessage>{errors.password.message}</FormErrorMessage>
               ) : null}
             </FormControl>
-            <Button variant='outline' type='submit'>
-              Login
+            <Button variant='outline' type='submit' isLoading={isLoading} loadingText={t('login')}>
+              {t('login')}
             </Button>
           </Stack>
         </form>

@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { getUserData } from '@/store/user/login'
 import { decode } from 'js-base64'
+import { useToast } from '@chakra-ui/react'
+import { useTranslation } from 'next-i18next'
 
 const backend_url = process.env.BACKEND_URL
 
@@ -35,6 +37,8 @@ type Props = {
 const AuthProvider: FC<Props> = ({ children }) => {
   // Dispatch
   const dispatch = useDispatch<AppDispatch>()
+  const toast = useToast()
+  const { t } = useTranslation()
 
   // Selector
   const { token } = useSelector((state: RootState) => state.login)
@@ -52,23 +56,36 @@ const AuthProvider: FC<Props> = ({ children }) => {
       if (token || tokenLocal) {
         setLoading(true)
         await axios({
-          baseURL: `${backend_url}users/profile`,
-          headers: { Token: 'Bearer ' + decode(tokenLocal) },
+          baseURL: `${backend_url}/users/profile`,
+          headers: { Authorization: 'Bearer ' + tokenLocal },
         })
           .then(res => {
             setLoading(false)
-            dispatch(getUserData(res.data.message))
+            dispatch(getUserData(res.data.data))
+            if (res.data.message)
+              toast({
+                status: 'success',
+                position: 'top-right',
+                isClosable: true,
+                variant: 'left-accent',
+                title: t(res.data?.message),
+              })
           })
-          .catch(() => {
+          .catch(error => {
+            const data = error?.response?.data
+            if (data?.message)
+              toast({
+                status: 'warning',
+                position: 'top-right',
+                isClosable: true,
+                variant: 'left-accent',
+                title: t(data?.message),
+              })
             localStorage.removeItem('perfume')
             setLoading(false)
-            if (!router.pathname.includes('login')) {
-              router.replace('/')
-            }
+            if (!router.pathname.includes('login')) router.replace('/login')
           })
-      } else {
-        setLoading(false)
-      }
+      } else setLoading(false)
     }
 
     initAuth()

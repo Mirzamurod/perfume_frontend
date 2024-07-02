@@ -1,3 +1,5 @@
+import i18n from './i18n'
+
 const eng = {
   search: 'Search',
   login: 'Login',
@@ -30,6 +32,40 @@ const eng = {
   password: 'Password',
   password_required: 'Password is required',
   must: 'Must be one uppercase, one lowercase, one number and special case character',
+  not_authorized: 'Not authorized',
+  not_authorized_no_token: 'Not authorized, no token',
+  not_authorized_as_an_admin: 'Not authorized as an admin',
+  not_authorized_as_a_client: 'Not authorized as an client',
+  must_have_perfume: 'Must have at least 1 perfume',
+  order_added: 'Order successfully added',
+  order_data_invalid: 'Order data is invalid',
+  order_not_found: 'Order not found',
+  order_updated: 'Order successfully updated',
+  order_deleted: 'Order successfully deleted',
+  perfume_not_found: 'Perfume not found',
+  perfume_already_exists: 'Perfume already exists',
+  perfume_added: 'Perfume successfully added',
+  perfume_updated: 'Perfume successfully updated',
+  perfume_deleted: 'Perfume successfully deleted',
+  user_not_found: 'User not found',
+  user_already_exists: 'User already exists',
+  user_added: 'User successfully added',
+  invalid_user_data: 'User data is invalid',
+  phone_or_password_wrong: 'Phone or password is wrong',
+  user_updated: 'User successfully updated',
+  current_password_wrong: 'Current password is wrong',
+  client_added: 'Client successfully added',
+  invalid_client_data: 'Client data is invalid',
+  client_not_found: 'Client not found',
+  client_updated: 'Client successfully updated',
+  client_deleted: 'Client successfully deleted',
+  supplier_not_found: 'Supplier not found',
+  supplier_updated: 'Supplier successfully updated',
+  supplier_deleted: 'Supplier successfully deleted',
 }
+
+export type TranslationKeys = keyof typeof eng
+
+export const t = (key: TranslationKeys) => i18n.t(key)
 
 export default eng

@@ -9,8 +9,10 @@ import { us, ru, uz } from '@/languages'
 // Store
 
 // chakra ui
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import theme from './theme'
+
+const { ToastContainer } = createStandaloneToast()
 
 if (typeof window !== 'undefined')
   i18next.use(initReactI18next).init({
@@ -36,6 +38,7 @@ const ThemeComponent = ({ children }: { children: ReactNode }) => {
       toastOptions={{ defaultOptions: { isClosable: true, position: 'top-right' } }}
     >
       {children}
+      <ToastContainer />
     </ChakraProvider>
   )
 }

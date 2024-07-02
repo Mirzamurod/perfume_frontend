@@ -1,8 +1,10 @@
 import axios from 'axios'
-import { TPerfume } from '@/types/middleware'
+import { createStandaloneToast } from '@chakra-ui/react'
 import { decode } from 'js-base64'
-import { useToast } from '@chakra-ui/react'
-import { useLanguage } from '@/context/LanguageContext'
+import { TPerfume } from '@/types/middleware'
+import i18n from '@/languages/i18n'
+
+const { toast } = createStandaloneToast()
 
 const middleware =
   ({ dispatch }: { dispatch: any }) =>
@@ -22,7 +24,7 @@ const middleware =
 
     const token = localStorage.getItem('perfume')
 
-    const headers = token ? { Authorization: `Bearer ${decode(token)}` } : null
+    const headers = token ? { Authorization: `Bearer ${token}` } : null
 
     dispatch({ type: onStart })
 
@@ -36,18 +38,29 @@ const middleware =
       headers,
     })
       .then(res => {
-        if (res.status === 200 || res.status === 201)
+        if (res.status === 200 || res.status === 201) {
           dispatch({ type: onSuccess, payload: res.data })
-        else dispatch({ type: onFail, payload: res })
+          if (res.data.message)
+            toast({
+              status: 'success',
+              position: 'top-right',
+              isClosable: true,
+              variant: 'left-accent',
+              title: i18n?.t(res.data?.message),
+            })
+        } else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {
         const data = error?.response?.data
         if (data?.message)
-        // if (error?.response?.status === 400) {
-        //   if (typeof data?.message === 'string') toast({ status: 'warning', title: data?.message })
-        //   else toast({ status: 'warning', title: data?.message?.[language.lang] })
-        // } else toast({ status: 'warning', title: data?.message })
-        dispatch({ type: onFail, payload: error?.response?.data })
+          toast({
+            status: 'warning',
+            position: 'top-right',
+            isClosable: true,
+            variant: 'left-accent',
+            title: i18n?.t(data?.message),
+          })
+        else dispatch({ type: onFail, payload: error?.response?.data })
       })
   }
 

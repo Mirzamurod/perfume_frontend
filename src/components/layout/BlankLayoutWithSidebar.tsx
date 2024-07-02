@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { BlankLayoutWithAppBarProps } from '@/types/types'
+import { IBlankLayoutWithSidebar } from '@/types/blankLayout'
 
-const BlankLayoutWithSidebar: FC<BlankLayoutWithAppBarProps> = props => {
+const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
   const { children } = props
 
   return <div>{children}</div>

@@ -28,14 +28,9 @@ const AuthGuard = (props: AuthGuardProps) => {
 
     if (typeof window !== 'undefined') {
       if (user === null && !window.localStorage.getItem('perfume')!) {
-        if (router.asPath !== '/') {
-          router.replace({
-            pathname: '/',
-            query: { returnUrl: router.asPath },
-          })
-        } else {
-          router.replace('/')
-        }
+        if (router.asPath !== '/')
+          router.replace({ pathname: '/login', query: { returnUrl: router.asPath } })
+        else router.replace('/login')
       }
     }
   }, [router.route])
