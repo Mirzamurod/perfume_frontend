@@ -62,6 +62,7 @@ const eng = {
   supplier_not_found: 'Supplier not found',
   supplier_updated: 'Supplier successfully updated',
   supplier_deleted: 'Supplier successfully deleted',
+  dashboard: 'Dashboard',
 }
 
 export type TranslationKeys = keyof typeof eng

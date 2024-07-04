@@ -1,9 +1,9 @@
-import { Button, useColorMode } from '@chakra-ui/react'
+import { Text, useColorMode } from '@chakra-ui/react'
 
 const Home = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode()
 
-  return <Button onClick={toggleColorMode}>Click me {colorMode}</Button>
+  return <Text>{colorMode.toUpperCase()}</Text>
 }
 
 export default Home

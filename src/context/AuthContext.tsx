@@ -56,7 +56,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
       if (token || tokenLocal) {
         setLoading(true)
         await axios({
-          baseURL: `${backend_url}/users/profile`,
+          baseURL: `${backend_url}users/profile`,
           headers: { Authorization: 'Bearer ' + tokenLocal },
         })
           .then(res => {

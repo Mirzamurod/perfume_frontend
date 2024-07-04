@@ -60,6 +60,7 @@ const ru = {
   supplier_not_found: 'Поставщик не найден',
   supplier_updated: 'Поставщик успешно обновлен',
   supplier_deleted: 'Поставщик успешно удален',
+  dashboard: 'Панель приборов',
 }
 
 export default ru

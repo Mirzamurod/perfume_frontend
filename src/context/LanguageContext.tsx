@@ -12,9 +12,9 @@ const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const getInitialLanguage = (): Language => {
     if (typeof window !== 'undefined') {
       const storedLang = localStorage.getItem('lang')
-      return storedLang ? JSON.parse(storedLang) : { lang: 'us', name: 'Eng' }
+      return storedLang ? JSON.parse(storedLang) : { lang: 'eng', name: 'Eng' }
     }
-    return { lang: 'us', name: 'Eng' }
+    return { lang: 'eng', name: 'Eng' }
   }
 
   const [language, setLanguageState] = useState<Language>(getInitialLanguage)
@@ -22,7 +22,7 @@ const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === 'lang') {
-        setLanguageState(event.newValue ? JSON.parse(event.newValue) : { lang: 'us', name: 'Eng' })
+        setLanguageState(event.newValue ? JSON.parse(event.newValue) : { lang: 'eng', name: 'Eng' })
       }
     }
 

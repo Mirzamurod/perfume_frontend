@@ -60,6 +60,7 @@ const uz = {
   supplier_not_found: 'Yetkazib beruvchi topilmadi',
   supplier_updated: 'Yetkazib beruvchi muvaffaqiyatli yangilandi',
   supplier_deleted: 'Yetkazib beruvchi muvaffaqiyatli oʻchirildi',
+  dashboard: 'Boshqaruv paneli',
 }
 
 export default uz
