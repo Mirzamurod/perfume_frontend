@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
@@ -17,6 +17,7 @@ import { TRegister } from '@/types/register'
 import { userLogin } from '@/store/user/login'
 import { useAppSelector } from '@/store'
 import { TranslationKeys, t } from '@/languages/Eng'
+import BlankLayout from '@/components/layout/BlankLayout'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -79,6 +80,8 @@ const Login = () => {
     </Box>
   )
 }
+
+Login.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 Login.guestGuard = true
 

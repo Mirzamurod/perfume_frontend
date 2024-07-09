@@ -54,6 +54,7 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         justifyContent='space-between'
         transition='ease-in-out .2s'
         borderRadius='2xl'
+        display={{ base: 'none', lg: 'flex' }}
       >
         <Box w='full'>
           {/* Logo */}
@@ -85,7 +86,7 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         <AvatarBox collapse={collapse} user={user!} />
       </Flex>
       {/* Main */}
-      <Box as='main' w='full' h='full' border='1px' position='relative' borderRadius='2xl'>
+      <Box as='main' w='full' h='full' border='1px' position='relative' borderRadius='2xl' overflow='auto'>
         <Flex mx={4} mt={4} justifyContent='space-between'>
           <IconButton
             aria-label='Menu Collapse'
@@ -107,7 +108,9 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
                   { lang: 'ru', name: 'Ru' },
                   { lang: 'eng', name: 'Eng' },
                 ].map(item => (
-                  <MenuItem onClick={() => selectLang(item as Language)}>{item.name}</MenuItem>
+                  <MenuItem onClick={() => selectLang(item as Language)} key={item.lang}>
+                    {item.name}
+                  </MenuItem>
                 ))}
               </MenuList>
             </Menu>
