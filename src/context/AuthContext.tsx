@@ -8,8 +8,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { getUserData } from '@/store/user/login'
-import { decode } from 'js-base64'
-import { useToast } from '@chakra-ui/react'
+import { UseToastOptions, useToast } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 
 const backend_url = process.env.BACKEND_URL
@@ -50,6 +49,13 @@ const AuthProvider: FC<Props> = ({ children }) => {
   // Hooks
   const router = useRouter()
 
+  const config: UseToastOptions = {
+    status: 'success',
+    position: 'top-right',
+    isClosable: true,
+    variant: 'left-accent',
+  }
+
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       let tokenLocal = window.localStorage.getItem('perfume')!
@@ -62,25 +68,11 @@ const AuthProvider: FC<Props> = ({ children }) => {
           .then(res => {
             setLoading(false)
             dispatch(getUserData(res.data.data))
-            if (res.data.message)
-              toast({
-                status: 'success',
-                position: 'top-right',
-                isClosable: true,
-                variant: 'left-accent',
-                title: t(res.data?.message),
-              })
+            if (res.data.message) toast({ ...config, title: t(res.data?.message) })
           })
           .catch(error => {
             const data = error?.response?.data
-            if (data?.message)
-              toast({
-                status: 'warning',
-                position: 'top-right',
-                isClosable: true,
-                variant: 'left-accent',
-                title: t(data?.message),
-              })
+            if (data?.message) toast({ ...config, title: t(data?.message) })
             localStorage.removeItem('perfume')
             setLoading(false)
             if (!router.pathname.includes('login')) router.replace('/login')

@@ -20,8 +20,8 @@ import {
 } from '@chakra-ui/react'
 import Input from '@/components/Input'
 import { TInputType } from '@/types/input'
-import { GenderTypes, SeasonTypes, TProduct, TypeTypes } from '@/types/product'
-import { addProduct } from '@/store/product'
+import { GenderTypes, SeasonTypes, TProductForm, TypeTypes } from '@/types/product'
+import { addProduct, editProduct, getProduct } from '@/store/product'
 import { useAppSelector } from '@/store'
 
 const AddEditProduct = () => {
@@ -31,7 +31,7 @@ const AddEditProduct = () => {
   const formSchema = yup.object().shape({
     type: yup
       .mixed<TypeTypes>()
-      .oneOf(['atir', 'mushkambar'], 'no_type')
+      .oneOf(['perfume', 'muskambar'], 'no_type')
       .required(t('type_required')),
     season: yup
       .mixed<SeasonTypes>()
@@ -44,15 +44,15 @@ const AddEditProduct = () => {
     name: yup.string().required(t('name_required')),
     color: yup.string().required(t('color_required')),
     smell: yup.string().required(t('smell_required')),
-    persistence_of_the_smell: yup.number().required(t('purchase_price_required')).min(1, 'min_1'),
+    persistence_of_the_smell: yup.number().required(t('persistence_required')).min(1, 'min_1'),
     purchase_price: yup.number().required(t('purchase_price_required')).min(1, 'min_1'),
     sale_price: yup.number().required(t('sale_price_required')).min(1, 'min_1'),
   })
-  const methods = useForm<TProduct>({
+  const methods = useForm<TProductForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
     defaultValues: {
-      type: 'atir',
+      type: 'perfume',
       season: 'winter',
       gender: 'boy',
       name: '',
@@ -71,7 +71,13 @@ const AddEditProduct = () => {
     reset,
     formState: { errors },
   } = methods
-  const { isLoading, success, errors: productErrors } = useAppSelector(state => state.product)
+
+  const {
+    isLoading,
+    success,
+    errors: productErrors,
+    product,
+  } = useAppSelector(state => state.product)
 
   const inputs: TInputType[] = [
     { name: 'name', isRequired: true },
@@ -82,21 +88,35 @@ const AddEditProduct = () => {
     { name: 'sale_price', type: 'number', isRequired: true },
   ]
 
-  const onSubmit = (values: TProduct) => {
+  const onSubmit = (values: TProductForm) => {
     if (router.query.addEdit === 'add') dispatch(addProduct(values))
+    else dispatch(editProduct(router.query.addEdit as string, values))
   }
+
+  useEffect(() => {
+    if (router.query.addEdit && router.query.addEdit !== 'add')
+      dispatch(getProduct(router.query.addEdit as string))
+    else reset()
+  }, [router.query.addEdit])
+
+  useEffect(() => {
+    if (product)
+      Object.keys(product).map(key =>
+        setValue(key as keyof TProductForm, product[key as keyof TProductForm])
+      )
+  }, [product])
 
   useEffect(() => {
     if (success) {
       reset()
-      router.replace('/products/list?page=1&limit=10')
+      router.push({ pathname: '/products/list', query: { page: 1, limit: 10 } })
     }
   }, [success])
 
   useEffect(() => {
     if (productErrors?.length)
       productErrors.map(item =>
-        setError(item.path as keyof TProduct, { type: 'custom', message: item.msg })
+        setError(item.path as keyof TProductForm, { type: 'custom', message: item.msg })
       )
   }, [productErrors])
 
@@ -106,7 +126,7 @@ const AddEditProduct = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex justifyContent='space-between'>
             <Heading mb={4}>
-              {t(router.query.addEdit === 'add' ? 'add_perfume' : 'edit_perfume')}
+              {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
             </Heading>
             <Button as={Link} href='/products/list'>
               {t('go_to_products')}
@@ -127,8 +147,8 @@ const AddEditProduct = () => {
                 <FormControl isInvalid={!!errors.type?.message} isRequired>
                   <FormLabel>{t('type')}</FormLabel>
                   <Select {...register('type')}>
-                    <option value='atir'>{t('atir')}</option>
-                    <option value='mushkambar'>{t('mushkambar')}</option>
+                    <option value='perfume'>{t('perfume')}</option>
+                    <option value='muskambar'>{t('muskambar')}</option>
                   </Select>
                   {errors.type?.message ? (
                     <FormErrorMessage>{errors.type?.message}</FormErrorMessage>
@@ -174,9 +194,9 @@ const AddEditProduct = () => {
               colorScheme='teal'
               type='submit'
               isLoading={isLoading}
-              loadingText={t('submit')}
+              loadingText={t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
             >
-              {t('submit')}
+              {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
             </Button>
           </Flex>
         </form>

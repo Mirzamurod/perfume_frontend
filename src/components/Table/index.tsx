@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, createElement } from 'react'
 import ReactPaginate from 'react-paginate'
 import { useTranslation } from 'next-i18next'
 import {
@@ -48,14 +48,14 @@ const Table: FC<TTable> = props => {
         <ChakraTable variant='simple'>
           <Thead>
             <Tr>
-              {columns.map((column, index) => (
+              {columns.map(column => (
                 <Th
                   {...column}
                   key={column.field}
                   onClick={() => !column.renderCell && changeSort(column.field)}
                   _hover={{ cursor: 'pointer' }}
                 >
-                  {column.headerName}{' '}
+                  {t(column.headerName)}{' '}
                   {sortModel?.field === column.field ? (
                     sortModel.sort === 'asc' ? (
                       <TriangleDownIcon />
@@ -84,10 +84,12 @@ const Table: FC<TTable> = props => {
               </Tr>
             ) : (
               data.map(item => (
-                <Tr key={item.id}>
+                <Tr key={item._id}>
                   {columns.map((column, index) => (
                     <Td {...column} key={index}>
-                      {column.renderCell ? column.renderCell({ row: item }) : item[column.field]}
+                      {column.renderCell
+                        ? createElement(column.renderCell, { row: item })
+                        : item[column.field]}
                     </Td>
                   ))}
                 </Tr>

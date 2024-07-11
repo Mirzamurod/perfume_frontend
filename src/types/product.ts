@@ -2,18 +2,23 @@ import { TError } from './error'
 
 export type TProductState = {
   isLoading: boolean
-  products: any
-  product: any | null
+  products: TProduct[]
+  product: TProduct | null
   success: boolean
   errors: null | TError[]
   pageCount: number
 }
 
-export type TypeTypes = 'atir' | 'mushkambar'
+export type TypeTypes = 'perfume' | 'muskambar'
 export type SeasonTypes = 'winter' | 'spring' | 'summer' | 'autumn'
 export type GenderTypes = 'boy' | 'girl'
 
 export type TProduct = {
+  _id: string
+  slug: string
+} & TProductForm
+
+export type TProductForm = {
   type: TypeTypes
   season: SeasonTypes
   gender: GenderTypes

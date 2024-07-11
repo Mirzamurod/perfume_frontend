@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { StyleProps, TableCellProps } from '@chakra-ui/react'
 
 export type TTable = {
@@ -15,7 +16,7 @@ export type TTable = {
 export type TColumns = {
   field: string
   headerName: string
-  renderCell?: (value: any) => any
+  renderCell?: ({ row }: { row: any; [x: string]: any }) => ReactNode
 } & StyleProps &
   TableCellProps
 

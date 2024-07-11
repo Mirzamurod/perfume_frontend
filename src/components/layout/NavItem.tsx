@@ -10,27 +10,29 @@ const NavItem = ({ item, collapse }: { item: TNavbar; collapse: boolean }) => {
   const { t } = useTranslation()
 
   if (item.type === 'link') {
-    const { icon, notifications, path } = item
+    const { icon, notifications, pathname, query, link } = item
+
+    const isActive = router.pathname === link || router.asPath === link
 
     return (
       <Box display='flex' alignItems='center' my={1} justifyContent='center'>
         <LinkChakra
-          href={path}
+          // @ts-ignore
+          href={{ pathname, query }}
           as={Link}
           gap={1}
           p={2}
+          w='full'
           display='flex'
+          borderRadius={6}
           alignItems='center'
           _hover={{ textDecoration: 'none', bgColor: '#8585853d', p: 2 }}
-          fontWeight={router.pathname === path ? 'bold' : 'medium'}
-          // color={isActive ? 'black' : 'gray.400'}
-          w='full'
-          bgColor={router.pathname === path ? '#8585853d' : ''}
-          borderRadius={6}
+          fontWeight={isActive ? 'bold' : 'medium'}
+          bgColor={isActive ? '#8585853d' : ''}
           justifyContent={!collapse ? 'center' : ''}
         >
           <ListIcon as={icon} fontSize={22} m='0' />
-          {collapse && <Text>{t(label)}</Text>}
+          {collapse && <Text ml={3}>{t(label)}</Text>}
         </LinkChakra>
         {collapse ? (
           notifications ? (
@@ -49,12 +51,12 @@ const NavItem = ({ item, collapse }: { item: TNavbar; collapse: boolean }) => {
       fontWeight='medium'
       textTransform='uppercase'
       fontSize='sm'
-      borderTopWidth={1}
+      borderTopWidth={collapse ? 0 : 1}
       borderColor='gray.100'
-      pt={collapse ? 8 : 0}
-      my={6}
+      mt={5}
+      mb={3}
     >
-      <Text display={collapse ? 'flex' : 'none'}>{label}</Text>
+      <Text display={collapse ? 'flex' : 'none'}>{t(label)}</Text>
     </Heading>
   )
 }

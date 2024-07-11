@@ -1,9 +1,11 @@
 import { IconType } from 'react-icons/lib'
 
 export type TNavbar = {
-  type: 'link'
+  type: 'link' | 'heading'
   label: string
-  icon: IconType
-  path?: string
+  icon?: IconType
+  pathname?: string
+  query?: { [x: string]: any }
+  link?: string
   notifications?: number
 }

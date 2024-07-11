@@ -11,13 +11,15 @@ import login from '@/store/user/login'
 import register from '@/store/user/register'
 import users from '@/store/users'
 import product from '@/store/product'
+import order from '@/store/order'
 
 export const store = configureStore({
   reducer: {
     login,
     register,
     users,
-    product
+    product,
+    order,
   },
   // @ts-ignore
   middleware: () => [middleware],

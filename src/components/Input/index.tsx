@@ -18,7 +18,7 @@ const Input: FC<TInputType> = props => {
       control={control}
       render={({ field }) => (
         <FormControl isInvalid={!!errors?.[name]?.message} isRequired={isRequired}>
-          <FormLabel htmlFor={name}>{name || label}</FormLabel>
+          <FormLabel htmlFor={name}>{t(label || name)}</FormLabel>
           <ChakraInput
             {...field}
             {...props}
@@ -27,7 +27,7 @@ const Input: FC<TInputType> = props => {
             type={type || 'text'}
           />
           {errors?.[name]?.message ? (
-            <FormErrorMessage>{errors?.[name]?.message as string}</FormErrorMessage>
+            <FormErrorMessage>{t(errors?.[name]?.message as string)}</FormErrorMessage>
           ) : null}
         </FormControl>
       )}

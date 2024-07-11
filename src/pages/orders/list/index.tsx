@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { Box } from '@chakra-ui/react'
-import TableHeader from '@/view/products/TableHeader'
+import TableHeader from '@/view/orders/TableHeader'
 import Table from '@/components/Table'
 import { TSortModel } from '@/types/table'
 import { useAppSelector } from '@/store'
-import { getProducts } from '@/store/product'
-import columns from '@/view/products/columns'
+import columns from '@/view/orders/columns'
+import { getOrders } from '@/store/order'
 
-const Products = () => {
+const Orders = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [ordering, setOrdering] = useState<TSortModel | null>(null)
@@ -17,11 +17,11 @@ const Products = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const debounceTimeout = useRef<NodeJS.Timeout | number | null>(null)
 
-  const { products, isLoading, pageCount } = useAppSelector(state => state.product)
+  const { orders, isLoading, pageCount } = useAppSelector(state => state.order)
 
   useEffect(() => {
     dispatch(
-      getProducts({
+      getOrders({
         page: router.query.page || 1,
         limit: router.query.limit || 10,
         sortName: ordering?.field,
@@ -52,7 +52,7 @@ const Products = () => {
     <Box>
       <TableHeader search={search} setSearch={setSearch} />
       <Table
-        data={products}
+        data={orders}
         columns={columns}
         loading={isLoading}
         pageCount={pageCount}
@@ -70,4 +70,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default Orders

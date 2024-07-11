@@ -13,4 +13,8 @@ export const getUsersApi = 'users/get/all'
 
 // products
 export const getproducts = 'perfume'
-export const addproduct = 'perfume'
+export const getproduct = 'perfume/'
+
+// order
+export const getorders = 'order'
+export const getorder = 'order/'
