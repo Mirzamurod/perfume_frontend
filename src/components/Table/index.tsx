@@ -98,38 +98,43 @@ const Table: FC<TTable> = props => {
           </Tbody>
         </ChakraTable>
       </TableContainer>
-      <Flex mt={6} alignItems='center' justifyContent='end'>
-        <Select
-          variant='outline'
-          width='auto'
-          value={paginationModel?.pageSize ?? 10}
-          onChange={({ target }) => onPaginationModelChange!({ page: 1, pageSize: +target.value })}
-        >
-          {pageSizeOptions?.map(item => (
-            <option value={item} key={item}>
-              {item}
-            </option>
-          ))}
-        </Select>
-        <ReactPaginate
-          previousLabel='<'
-          nextLabel='>'
-          breakLabel='...'
-          initialPage={paginationModel?.page!}
-          pageCount={pageCount! ?? 1}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={3}
-          onPageChange={({ selected }) =>
-            onPaginationModelChange!({
-              page: selected! + 1,
-              pageSize: paginationModel?.pageSize!,
-            })
-          }
-          containerClassName='pagination'
-          activeClassName='active'
-          renderOnZeroPageCount={null}
-        />
-      </Flex>
+
+      {!loading ? (
+        <Flex mt={6} alignItems='center' justifyContent='end'>
+          <Select
+            variant='outline'
+            width='auto'
+            value={paginationModel?.pageSize ?? 10}
+            onChange={({ target }) =>
+              onPaginationModelChange!({ page: 1, pageSize: +target.value })
+            }
+          >
+            {pageSizeOptions?.map(item => (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            ))}
+          </Select>
+          <ReactPaginate
+            previousLabel='<'
+            nextLabel='>'
+            breakLabel='...'
+            initialPage={paginationModel?.page!}
+            pageCount={pageCount! ?? 1}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={({ selected }) =>
+              onPaginationModelChange!({
+                page: selected! + 1,
+                pageSize: paginationModel?.pageSize!,
+              })
+            }
+            containerClassName='pagination'
+            activeClassName='active'
+            renderOnZeroPageCount={null}
+          />
+        </Flex>
+      ) : null}
     </Box>
   )
 }

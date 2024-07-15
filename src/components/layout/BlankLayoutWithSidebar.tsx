@@ -43,17 +43,18 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
     <HStack w='full' h='100vh' padding={5}>
       {/* Sidebar */}
       <Flex
-        as='aside'
         w='full'
         h='full'
-        maxW={collapse ? 350 : 100}
-        border='1px'
-        alignItems='start'
+        as='aside'
         padding={6}
-        flexDirection='column'
-        justifyContent='space-between'
-        transition='ease-in-out .2s'
+        border='1px'
+        overflow='auto'
         borderRadius='2xl'
+        alignItems='start'
+        flexDirection='column'
+        maxW={collapse ? 350 : 100}
+        transition='ease-in-out .2s'
+        justifyContent='space-between'
         display={{ base: 'none', lg: 'flex' }}
       >
         <Box w='full'>
@@ -86,7 +87,15 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         <AvatarBox collapse={collapse} user={user!} />
       </Flex>
       {/* Main */}
-      <Box as='main' w='full' h='full' border='1px' position='relative' borderRadius='2xl' overflow='auto'>
+      <Box
+        as='main'
+        w='full'
+        h='full'
+        border='1px'
+        position='relative'
+        borderRadius='2xl'
+        overflow='auto'
+      >
         <Flex mx={4} mt={4} justifyContent='space-between'>
           <IconButton
             aria-label='Menu Collapse'

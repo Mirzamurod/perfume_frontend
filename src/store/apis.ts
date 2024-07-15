@@ -12,8 +12,8 @@ export const userdelete = 'users/delete'
 export const getUsersApi = 'users/get/all'
 
 // products
-export const getproducts = 'perfume'
-export const getproduct = 'perfume/'
+export const getproducts = 'product'
+export const getproduct = 'product/'
 
 // order
 export const getorders = 'order'

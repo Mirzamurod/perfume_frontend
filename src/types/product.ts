@@ -2,7 +2,9 @@ import { TError } from './error'
 
 export type TProductState = {
   isLoading: boolean
+  searchIsLoading: boolean
   products: TProduct[]
+  searchProducts: TProduct[]
   product: TProduct | null
   success: boolean
   errors: null | TError[]
@@ -26,6 +28,4 @@ export type TProductForm = {
   color: string
   smell: string
   persistence_of_the_smell: number
-  purchase_price: number
-  sale_price: number
 }

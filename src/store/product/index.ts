@@ -4,7 +4,9 @@ import { TProductForm, TProductState } from '@/types/product'
 
 const initialState: TProductState = {
   isLoading: false,
+  searchIsLoading: false,
   products: [],
+  searchProducts: [],
   product: null,
   pageCount: 0,
   errors: null,
@@ -27,6 +29,21 @@ const product = createSlice({
     },
     onFailGetProducts: (state, { payload }) => {
       state.isLoading = false
+      state.errors = payload?.messages
+      state.success = payload?.success
+    },
+    // get products
+    onStartGetSearchProducts: state => {
+      state.searchIsLoading = true
+      state.success = false
+    },
+    onSuccessGetSearchProducts: (state, { payload }) => {
+      state.searchIsLoading = false
+      state.searchProducts = payload.data
+      state.pageCount = payload.pageLists
+    },
+    onFailGetSearchProducts: (state, { payload }) => {
+      state.searchIsLoading = false
       state.errors = payload?.messages
       state.success = payload?.success
     },
@@ -69,6 +86,16 @@ export const getProducts = (params?: any) =>
     onStart: product.actions.onStartGetProducts.type,
     onSuccess: product.actions.onSuccessGetProducts.type,
     onFail: product.actions.onFailGetProducts.type,
+  })
+
+export const getSearchProducts = (params?: any) =>
+  perfume({
+    url: getproducts,
+    method: 'get',
+    params,
+    onStart: product.actions.onStartGetSearchProducts.type,
+    onSuccess: product.actions.onSuccessGetSearchProducts.type,
+    onFail: product.actions.onFailGetSearchProducts.type,
   })
 
 export const getProduct = (id: string) =>
