@@ -96,7 +96,7 @@ const AddEditProduct = () => {
           <Heading mb={4}>
             {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
           </Heading>
-          <Button as={Link} href='/products/list'>
+          <Button as={Link} href='/products/list?page=1&limit=10'>
             {t('go_to_products')}
           </Button>
         </Flex>

@@ -99,6 +99,17 @@ const ru = {
   orders: 'Заказы',
   add_order: 'Добавить заказ',
   no_data: 'Нет данных',
+  purchased_products: 'Купленные продукты',
+  add_purchased_product: 'Добавить купленный продукт',
+  count: 'Считать',
+  purchased_price: 'Цена покупки',
+  choose_product: 'Выбрать продукт',
+  go_to_purchased_products: 'Перейти к купленным товарам',
+  product_required: 'Продукт требуется',
+  count_required: 'Требуется подсчет',
+  purchased_price_required: 'Требуется указать цену покупки',
+  edit_purchased_product: 'Редактировать купленный продукт',
+  purchased_products_group: 'Закупленная продукция (групповая)',
 }
 
 export default ru

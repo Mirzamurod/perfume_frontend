@@ -101,6 +101,17 @@ const eng = {
   orders: 'Orders',
   add_order: 'Add order',
   no_data: 'No data',
+  purchased_products: 'Purchased products',
+  add_purchased_product: 'Add purchased product',
+  count: 'Count',
+  purchased_price: 'Purchased price',
+  choose_product: 'Choose product',
+  go_to_purchased_products: 'Go to purchased products',
+  product_required: 'Product is required',
+  count_required: 'Count is required',
+  purchased_price_required: 'Purchased price is required',
+  edit_purchased_product: 'Edit purchased product',
+  purchased_products_group: 'Purchased products (group)',
 }
 
 export type TranslationKeys = keyof typeof eng

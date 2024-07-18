@@ -80,7 +80,7 @@ const AddEditOrder = () => {
       <Box>
         <Flex justifyContent='space-between'>
           <Heading mb={4}>{t(router.query.addEdit === 'add' ? 'add_order' : 'edit_order')}</Heading>
-          <Button as={Link} href='/orders/list'>
+          <Button as={Link} href={{ href: '/orders/list', query: { limit: 10, page: 1 } }}>
             {t('go_to_orders')}
           </Button>
         </Flex>

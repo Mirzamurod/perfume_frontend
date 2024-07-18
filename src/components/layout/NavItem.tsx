@@ -32,7 +32,7 @@ const NavItem = ({ item, collapse }: { item: TNavbar; collapse: boolean }) => {
           justifyContent={!collapse ? 'center' : ''}
         >
           <ListIcon as={icon} fontSize={22} m='0' />
-          {collapse && <Text ml={3}>{t(label)}</Text>}
+          {collapse && <Text ml={3} noOfLines={1}>{t(label)}</Text>}
         </LinkChakra>
         {collapse ? (
           notifications ? (

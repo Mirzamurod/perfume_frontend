@@ -15,7 +15,7 @@ const TableHeader: FC<IProps> = props => {
 
   return (
     <Box>
-      <Heading mb={2}>{t('products')}</Heading>
+      <Heading mb={2}>{t('purchased_products_group')}</Heading>
       <Flex justifyContent='space-between' mb={4}>
         <Input
           placeholder={t('search')}
@@ -28,9 +28,9 @@ const TableHeader: FC<IProps> = props => {
           variant='outline'
           leftIcon={<AddIcon />}
           as={Link}
-          href='/products/add'
+          href='/purchased-products/add'
         >
-          {t('add_product')}
+          {t('add_purchased_product')}
         </Button>
       </Flex>
     </Box>

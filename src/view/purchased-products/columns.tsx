@@ -13,36 +13,38 @@ import {
   Flex,
   useDisclosure,
   Tooltip,
+  Text,
 } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { TProduct } from '@/types/product'
+import { TPurchasedProduct } from '@/types/purchasedProduct'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'name' },
-  { field: 'type', headerName: 'type' },
-  { field: 'color', headerName: 'color' },
-  { field: 'season', headerName: 'season' },
-  { field: 'gender', headerName: 'gender' },
-  { field: 'smell', headerName: 'smell' },
-  { field: 'persistence_of_the_smell', headerName: 'persistence_of_the_smell', isNumeric: true },
+  {
+    field: 'name',
+    headerName: 'name',
+    renderCell: ({ row }: { row: TPurchasedProduct }) => <Text>{row.product.name}</Text>,
+  },
+  { field: 'count', headerName: 'count', isNumeric: true },
+  { field: 'purchased_price', headerName: 'purchased_price', isNumeric: true },
+  { field: 'sale_price', headerName: 'sale_price', isNumeric: true },
   {
     field: 'action',
     headerName: 'action',
     isNumeric: true,
-    renderCell: ({ row }: { row: TProduct }) => {
+    renderCell: ({ row }: { row: TPurchasedProduct }) => {
       const { onOpen, onClose, isOpen } = useDisclosure()
       const { t } = useTranslation()
 
       return (
         <>
-          <Tooltip label={t('edit_product')}>
+          <Tooltip label={t('edit_purchased_product')}>
             <IconButton
               mr={3}
               icon={<EditIcon />}
-              aria-label={t('edit_product')}
+              aria-label={t('edit_purchased_product')}
               as={Link}
-              href={`/products/${row._id}`}
+              href={`/purchased-products/${row._id}`}
             />
           </Tooltip>
           <Popover placement='left'>

@@ -99,6 +99,17 @@ const uz = {
   orders: 'Buyurtmalar',
   add_order: "Buyurtma qo'shish",
   no_data: "Ma'lumot yo'q",
+  purchased_products: 'Sotib olingan mahsulotlar',
+  add_purchased_product: "Sotib olingan mahsulotni qo'shing",
+  count: 'Soni',
+  purchased_price: 'Sotib olingan narxi',
+  choose_product: 'Mahsulotni tanlang',
+  go_to_purchased_products: "Sotib olingan mahsulotlarga o'ting",
+  product_required: 'Mahsulot talab qilinadi',
+  count_required: 'Soni talab qilinadi',
+  purchased_price_required: 'Sotib olingan narxi talab qilinadi',
+  edit_purchased_product: 'Xarid qilingan mahsulotni tahrirlash',
+  purchased_products_group: 'Sotib olingan mahsulotlar (guruh)',
 }
 
 export default uz
