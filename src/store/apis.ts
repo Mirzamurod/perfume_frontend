@@ -23,3 +23,7 @@ export const getpurchasedproductsgroup = 'purchased-product/group'
 // order
 export const getorders = 'order'
 export const getorder = 'order/'
+
+// supplier
+export const getsuppliers = 'supplier'
+export const getsupplier = 'supplier/'

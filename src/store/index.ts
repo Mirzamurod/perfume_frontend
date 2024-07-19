@@ -13,6 +13,7 @@ import users from '@/store/users'
 import product from '@/store/product'
 import order from '@/store/order'
 import purchased_product from '@/store/purchased_product'
+import supplier from '@/store/supplier'
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     product,
     order,
     purchased_product,
+    supplier,
   },
   // @ts-ignore
   middleware: () => [middleware],

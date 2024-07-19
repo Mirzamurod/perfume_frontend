@@ -26,6 +26,7 @@ const Table: FC<TTable> = props => {
     pageCount,
     sortModel,
     paginationModel,
+    footerPagination = true,
     onSortModelChange,
     onPaginationModelChange,
     pageSizeOptions = [10, 20, 50],
@@ -99,7 +100,7 @@ const Table: FC<TTable> = props => {
         </ChakraTable>
       </TableContainer>
 
-      {!loading ? (
+      {footerPagination && !loading ? (
         <Flex mt={6} alignItems='center' justifyContent='end'>
           <Select
             variant='outline'

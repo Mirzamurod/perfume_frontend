@@ -13,48 +13,31 @@ import {
   Flex,
   useDisclosure,
   Tooltip,
-  Text,
-  HStack,
-  VStack,
-  Stack,
 } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
-import { DeleteIcon, EditIcon, ViewIcon } from '@chakra-ui/icons'
-import { TOrder } from '@/types/order'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { TSupplier } from '@/types/supplier'
 
 const columns: TColumns[] = [
   { field: 'name', headerName: 'name' },
   { field: 'phone', headerName: 'phone' },
   {
-    field: 'products',
-    headerName: 'products',
-    isNumeric: true,
-    renderCell: ({ row }: { row: TOrder }) => <Text>{row.perfumes.length}</Text>,
-  },
-  {
     field: 'action',
     headerName: 'action',
     isNumeric: true,
-    renderCell: ({ row }: { row: TOrder }) => {
+    renderCell: ({ row }: { row: TSupplier }) => {
       const { onOpen, onClose, isOpen } = useDisclosure()
       const { t } = useTranslation()
 
       return (
-        <HStack justifyContent='end'>
-          <Tooltip label={t('view_product')}>
-            <IconButton
-              icon={<ViewIcon />}
-              aria-label={t('view_product')}
-              as={Link}
-              href={`/orders/view/${row._id}`}
-            />
-          </Tooltip>
+        <>
           <Tooltip label={t('edit_product')}>
             <IconButton
+              mr={3}
               icon={<EditIcon />}
               aria-label={t('edit_product')}
               as={Link}
-              href={`/orders/${row._id}`}
+              href={`/products/${row._id}`}
             />
           </Tooltip>
           <Popover placement='left'>
@@ -77,7 +60,7 @@ const columns: TColumns[] = [
               </PopoverBody>
             </PopoverContent>
           </Popover>
-        </HStack>
+        </>
       )
     },
   },

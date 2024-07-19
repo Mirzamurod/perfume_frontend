@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { createStandaloneToast } from '@chakra-ui/react'
-import { decode } from 'js-base64'
 import { TPerfume } from '@/types/middleware'
 import i18n from '@/languages/i18n'
 
@@ -10,8 +9,6 @@ const middleware =
   ({ dispatch }: { dispatch: any }) =>
   (next: any) =>
   (action: { type: string; payload: TPerfume }) => {
-    // const toast = useToast()
-    // const { language } = useLanguage()
 
     if (action.type !== 'perfume') {
       next(action)
@@ -60,7 +57,8 @@ const middleware =
             variant: 'left-accent',
             title: i18n?.t(data?.message),
           })
-        else dispatch({ type: onFail, payload: error?.response?.data })
+
+        dispatch({ type: onFail, payload: error?.response?.data })
       })
   }
 

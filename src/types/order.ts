@@ -12,8 +12,10 @@ export type TOrderState = {
 
 export type TOrder = {
   _id: string
-  perfumes: TProduct[]
-} & TOrderForm
+  name: string
+  phone: string
+  perfumes: { perfume: TProduct; qty: number }[]
+}
 
 export type TOrderForm = {
   name: string

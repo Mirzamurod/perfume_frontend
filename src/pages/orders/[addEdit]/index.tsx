@@ -11,7 +11,8 @@ import { useAppSelector } from '@/store'
 import AddEditCard from '@/view/order/AddEditCard'
 import AddEditAction from '@/view/order/AddEditAction'
 import { TOrderForm } from '@/types/order'
-import { getOrder } from '@/store/order'
+import { addOrder, editOrder, getOrder } from '@/store/order'
+import { getPurchasedProductsGroup } from '@/store/purchased_product'
 
 const AddEditOrder = () => {
   const { t } = useTranslation()
@@ -23,7 +24,7 @@ const AddEditOrder = () => {
     perfumes: yup
       .array(
         yup.object().shape({
-          id: yup.string().required(t('perfume_required')),
+          id: yup.string().required(t('product_required')),
           qty: yup.number().required(t('quantity_required')).min(1, t('min_1')),
         })
       )
@@ -32,21 +33,21 @@ const AddEditOrder = () => {
   const methods = useForm<TOrderForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: {
-      name: '',
-      phone: '',
-      perfumes: [{ qty: 0, id: '' }],
-    },
+    defaultValues: { name: '', phone: '', perfumes: [{ qty: 0, id: '' }] },
   })
   const { handleSubmit, setValue, setError, reset } = methods
 
   const { success, errors: orderErrors, order } = useAppSelector(state => state.order)
+  const { purchased_products } = useAppSelector(state => state.purchased_product)
 
   const onSubmit = (values: TOrderForm) => {
-    console.log(values)
-    // if (router.query.addEdit === 'add') dispatch(addOrder(values))
-    // else dispatch(editOrder(router.query.addEdit as string, values))
+    if (router.query.addEdit === 'add') dispatch(addOrder(values))
+    else dispatch(editOrder(router.query.addEdit as string, values))
   }
+
+  useEffect(() => {
+    dispatch(getPurchasedProductsGroup())
+  }, [])
 
   useEffect(() => {
     if (router.query.addEdit && router.query.addEdit !== 'add')
@@ -55,11 +56,13 @@ const AddEditOrder = () => {
   }, [router.query.addEdit])
 
   useEffect(() => {
-    if (order)
-      Object.keys(order).map(key =>
-        setValue(key as keyof TOrderForm, order[key as keyof TOrderForm])
-      )
-  }, [order])
+    if (order && purchased_products.length)
+      Object.keys(order).map(key => {
+        setValue(key as keyof TOrderForm, order[key as 'name'])
+        const perfumes = order.perfumes.map(item => ({ qty: item.qty, id: item.perfume._id }))
+        setValue('perfumes', perfumes)
+      })
+  }, [order, purchased_products])
 
   useEffect(() => {
     if (success) {
@@ -80,7 +83,7 @@ const AddEditOrder = () => {
       <Box>
         <Flex justifyContent='space-between'>
           <Heading mb={4}>{t(router.query.addEdit === 'add' ? 'add_order' : 'edit_order')}</Heading>
-          <Button as={Link} href={{ href: '/orders/list', query: { limit: 10, page: 1 } }}>
+          <Button as={Link} href='/orders/list?limit=10&page=1'>
             {t('go_to_orders')}
           </Button>
         </Flex>

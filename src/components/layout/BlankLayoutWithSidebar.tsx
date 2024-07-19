@@ -78,7 +78,7 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
           {/* Navigation */}
           <List w='full' my={3}>
             {navbar.map(item => (
-              <ListItem key={item.label}>
+              <ListItem key={item.label + item.type}>
                 <NavItem item={item} collapse={collapse} />
               </ListItem>
             ))}

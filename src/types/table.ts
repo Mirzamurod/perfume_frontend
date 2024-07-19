@@ -6,6 +6,7 @@ export type TTable = {
   columns: TColumns[]
   loading?: boolean
   pageCount?: number
+  footerPagination?: boolean
   pageSizeOptions?: number[]
   sortModel?: TSortModel | null
   onSortModelChange?: (value: TSortModel | null) => void

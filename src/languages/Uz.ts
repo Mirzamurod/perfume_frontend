@@ -70,7 +70,7 @@ const uz = {
   action: 'Harakat',
   type: 'Turi',
   gender: 'Jins',
-  smell: 'Hid',
+  smell: 'Hidi',
   persistence_of_the_smell: 'Hidning doimiyligi (kun)',
   purchase_price: 'Sotib olish narxi',
   go_to_products: "Mahsulotlarga o'tish",

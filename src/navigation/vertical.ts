@@ -5,6 +5,7 @@ import {
   MdListAlt,
   MdOutlineInventory2,
   MdOutlineSpaceDashboard,
+  MdPermIdentity,
 } from 'react-icons/md'
 import { TNavbar } from '@/types/navbar'
 
@@ -64,6 +65,22 @@ const navbar: TNavbar[] = [
     label: 'add_order',
     pathname: '/orders/add',
     link: '/orders/add',
+    icon: MdControlPoint,
+  },
+  { type: 'heading', label: 'suppliers' },
+  {
+    type: 'link',
+    label: 'suppliers',
+    pathname: '/suppliers/list',
+    link: '/suppliers/list',
+    query: { page: 1, limit: 10 },
+    icon: MdPermIdentity,
+  },
+  {
+    type: 'link',
+    label: 'add_supplier',
+    pathname: '/suppliers/add',
+    link: '/suppliers/add',
     icon: MdControlPoint,
   },
 ]
