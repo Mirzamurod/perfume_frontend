@@ -15,12 +15,13 @@ import {
   Tooltip,
   Text,
   HStack,
-  VStack,
-  Stack,
+  Box,
+  Select,
 } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
 import { DeleteIcon, EditIcon, ViewIcon } from '@chakra-ui/icons'
 import { TOrder } from '@/types/order'
+import { useAppSelector } from '@/store'
 
 const columns: TColumns[] = [
   { field: 'name', headerName: 'name' },
@@ -30,6 +31,34 @@ const columns: TColumns[] = [
     headerName: 'products',
     isNumeric: true,
     renderCell: ({ row }: { row: TOrder }) => <Text>{row.perfumes.length}</Text>,
+  },
+  {
+    field: 'delivery_date',
+    headerName: 'delivery_date',
+    isNumeric: true,
+    renderCell: ({ row }: { row: TOrder }) => (
+      <Text>{row.delivery_date?.toString().slice(0, 10)}</Text>
+    ),
+  },
+  {
+    field: 'supplier',
+    headerName: 'supplier',
+    isNumeric: true,
+    renderCell: ({ row }: { row: TOrder }) => {
+      const { t } = useTranslation()
+      const { suppliers } = useAppSelector(state => state.supplier)
+
+      return (
+        <Box>
+          <Select value={row.supplier?._id} width='auto'>
+            <option value=''>{t('choose_supplier')}</option>
+            {suppliers.map(supplier => (
+              <option value={supplier._id}>{row.supplier?.name || row.supplier?.phone}</option>
+            ))}
+          </Select>
+        </Box>
+      )
+    },
   },
   {
     field: 'action',
@@ -84,3 +113,4 @@ const columns: TColumns[] = [
 ]
 
 export default columns
+// row.supplier?.name || row.supplier?.phone

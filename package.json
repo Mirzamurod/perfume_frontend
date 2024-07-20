@@ -33,6 +33,7 @@
     "react-paginate": "^8.2.0",
     "react-redux": "^9.1.2",
     "react-toastify": "^10.0.5",
+    "react-yandex-maps": "^4.6.0",
     "sass": "^1.77.6",
     "yup": "^1.4.0"
   },

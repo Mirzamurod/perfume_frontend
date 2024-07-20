@@ -17,6 +17,7 @@ export type TTable = {
 export type TColumns = {
   field: string
   headerName: string
+  sortable?: boolean
   renderCell?: ({ row }: { row: any; [x: string]: any }) => ReactNode
 } & StyleProps &
   TableCellProps

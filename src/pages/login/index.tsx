@@ -1,23 +1,17 @@
 import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormErrorMessage,
-  Input,
-  Stack,
-} from '@chakra-ui/react'
+import { Box, Button, Container, Stack } from '@chakra-ui/react'
 import { TRegister } from '@/types/register'
 import { userLogin } from '@/store/user/login'
 import { useAppSelector } from '@/store'
 import { TranslationKeys, t } from '@/languages/Eng'
 import BlankLayout from '@/components/layout/BlankLayout'
+import Input from '@/components/Input'
+import PasswordInput from '@/components/PasswordInput'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -26,16 +20,13 @@ const Login = () => {
     phone: yup.string().required(t('phone_required')),
     password: yup.string().required(t('password_required')),
   })
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm({
+  const methods = useForm({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { phone: '+998946565706', password: 'Test123!@#' },
+    defaultValues: { phone: '', password: '' },
   })
+
+  const { handleSubmit, setError } = methods
 
   const { errors: loginErrors, success, isLoading } = useAppSelector(state => state.login)
 
@@ -50,34 +41,29 @@ const Login = () => {
     if (success) router.replace('/')
   }, [success])
 
-  const onSubmit = (values: TRegister) => {
-    dispatch(userLogin(values))
-  }
+  const onSubmit = (values: TRegister) => dispatch(userLogin(values))
 
   return (
-    <Box __css={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
-      <Container>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={3}>
-            <FormControl isInvalid={!!errors.phone?.message}>
-              <Input type='tel' placeholder={t('phone')} {...register('phone')} />
-              {errors.phone?.type ? (
-                <FormErrorMessage>{errors.phone.message}</FormErrorMessage>
-              ) : null}
-            </FormControl>
-            <FormControl isInvalid={!!errors.password?.message}>
-              <Input type='password' placeholder={t('password')} {...register('password')} />
-              {errors.password?.type ? (
-                <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-              ) : null}
-            </FormControl>
-            <Button variant='outline' type='submit' isLoading={isLoading} loadingText={t('login')}>
-              {t('login')}
-            </Button>
-          </Stack>
-        </form>
-      </Container>
-    </Box>
+    <FormProvider {...methods}>
+      <Box __css={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+        <Container>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={3}>
+              <Input name='phone' />
+              <PasswordInput name='password' />
+              <Button
+                variant='outline'
+                type='submit'
+                isLoading={isLoading}
+                loadingText={t('login')}
+              >
+                {t('login')}
+              </Button>
+            </Stack>
+          </form>
+        </Container>
+      </Box>
+    </FormProvider>
   )
 }
 

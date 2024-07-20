@@ -6,100 +6,87 @@ import { useDispatch } from 'react-redux'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Box, Button, Flex, Heading } from '@chakra-ui/react'
-import { GenderTypes, SeasonTypes, TProductForm, TypeTypes } from '@/types/product'
-import { addProduct, editProduct, getProduct } from '@/store/product'
+import { Alert, AlertIcon, Box, Button, Flex, Heading } from '@chakra-ui/react'
 import { useAppSelector } from '@/store'
-import AddEditCard from '@/view/product/AddEditCard'
-import AddEditAction from '@/view/product/AddEditAction'
+import AddEditCard from '@/view/supplier/AddEditCard'
+import AddEditAction from '@/view/supplier/AddEditAction'
+import { TSupplierForm } from '@/types/supplier'
+import { addSupplier, editSupplier, getSupplier } from '@/store/supplier'
 
-const AddEditProduct = () => {
+const AddEditSupplier = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const dispatch = useDispatch()
+  const isAddMode = router.query.addEdit === 'add'
   const formSchema = yup.object().shape({
-    type: yup
-      .mixed<TypeTypes>()
-      .oneOf(['perfume', 'muskambar'], 'no_type')
-      .required(t('type_required')),
-    season: yup
-      .mixed<SeasonTypes>()
-      .oneOf(['winter', 'spring', 'summer', 'autumn'], 'no_season')
-      .required(t('season_required')),
-    gender: yup
-      .mixed<GenderTypes>()
-      .oneOf(['boy', 'girl'], 'no_gender')
-      .required(t('gender_required')),
-    name: yup.string().required(t('name_required')),
-    color: yup.string().required(t('color_required')),
-    smell: yup.string().required(t('smell_required')),
-    persistence_of_the_smell: yup.number().required(t('persistence_required')).min(1, 'min_1'),
+    name: yup.string(),
+    phone: yup.string().required(t('phone_required')),
+    // password: yup.string().required(t('password_required')),
+    password: yup.string(),
   })
-  const methods = useForm<TProductForm>({
+  const methods = useForm<TSupplierForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: {
-      type: 'perfume',
-      season: 'winter',
-      gender: 'boy',
-      name: '',
-      color: '',
-      smell: '',
-      persistence_of_the_smell: 1,
-    },
+    defaultValues: { name: '', phone: '', password: '' },
   })
   const { handleSubmit, setValue, setError, reset } = methods
 
   const {
     isLoading,
     success,
-    errors: productErrors,
-    product,
-  } = useAppSelector(state => state.product)
+    errors: supplierErrors,
+    supplier,
+  } = useAppSelector(state => state.supplier)
 
-  const onSubmit = (values: TProductForm) => {
-    if (router.query.addEdit === 'add') dispatch(addProduct(values))
-    else dispatch(editProduct(router.query.addEdit as string, values))
+  const onSubmit = (values: TSupplierForm) => {
+    if (router.query.addEdit === 'add') dispatch(addSupplier(values))
+    else dispatch(editSupplier(router.query.addEdit as string, values))
   }
 
   useEffect(() => {
     if (router.query.addEdit && router.query.addEdit !== 'add')
-      dispatch(getProduct(router.query.addEdit as string))
+      dispatch(getSupplier(router.query.addEdit as string))
     else reset()
   }, [router.query.addEdit])
 
   useEffect(() => {
-    if (product)
-      Object.keys(product).map(key =>
-        setValue(key as keyof TProductForm, product[key as keyof TProductForm])
+    if (supplier)
+      Object.keys(supplier).map(key =>
+        setValue(key as keyof TSupplierForm, supplier[key as 'phone'])
       )
-  }, [product])
+  }, [supplier])
 
   useEffect(() => {
     if (success) {
       reset()
-      router.push({ pathname: '/products/list', query: { page: 1, limit: 10 } })
+      router.push({ pathname: '/suppliers/list', query: { page: 1, limit: 10 } })
     }
   }, [success])
 
   useEffect(() => {
-    if (productErrors?.length)
-      productErrors.map(item =>
-        setError(item.path as keyof TProductForm, { type: 'custom', message: item.msg })
+    if (supplierErrors?.length)
+      supplierErrors.map(item =>
+        setError(item.path as keyof TSupplierForm, { type: 'custom', message: item.msg })
       )
-  }, [productErrors])
+  }, [supplierErrors])
 
   return (
     <FormProvider {...methods}>
       <Box>
         <Flex justifyContent='space-between'>
           <Heading mb={4}>
-            {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
+            {t(router.query.addEdit === 'add' ? 'add_supplier' : 'edit_supplier')}
           </Heading>
-          <Button as={Link} href='/products/list?page=1&limit=10'>
-            {t('go_to_products')}
+          <Button as={Link} href='/suppliers/list?page=1&limit=10'>
+            {t('go_to_suppliers')}
           </Button>
         </Flex>
+        {router.query.addEdit !== 'add' ? (
+          <Alert status='warning' borderRadius={6} mb={3}>
+            <AlertIcon />
+            {t('alert_autocomplete')}
+          </Alert>
+        ) : null}
         <form onSubmit={handleSubmit(onSubmit)}>
           <AddEditCard />
           <AddEditAction />
@@ -109,4 +96,4 @@ const AddEditProduct = () => {
   )
 }
 
-export default AddEditProduct
+export default AddEditSupplier

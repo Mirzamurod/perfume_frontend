@@ -110,6 +110,19 @@ const ru = {
   purchased_price_required: 'Требуется указать цену покупки',
   edit_purchased_product: 'Редактировать купленный продукт',
   purchased_products_group: 'Закупленная продукция (групповая)',
+  suppliers: 'Поставщики',
+  add_supplier: 'Добавить поставщика',
+  finished_orders: 'Выполненные заказы',
+  edit_supplier: 'Изменить поставщика',
+  go_to_suppliers: 'Перейти к поставщику',
+  go_to_orders: 'Перейти к заказам',
+  alert_autocomplete:
+    'Возможно, у вас включено автозаполнение. Отключите пароль, если вы не хотите его менять.',
+  order: 'Заказ',
+  delivery_date: 'Дата доставки',
+  supplier: 'Поставщик',
+  choose_supplier: 'Выбрать поставщика',
+  edit_order: 'Изменить заказ',
 }
 
 export default ru

@@ -5,7 +5,7 @@ import { FormControl, FormErrorMessage, FormLabel, Input as ChakraInput } from '
 import { TInputType } from '@/types/input'
 
 const Input: FC<TInputType> = props => {
-  const { name, label, placeholder, type, isRequired } = props
+  const { name, label, placeholder, type, isRequired, ts } = props
   const { t } = useTranslation()
   const {
     control,

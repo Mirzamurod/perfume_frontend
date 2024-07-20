@@ -8,6 +8,7 @@ const columns: TColumns[] = [
   { field: 'season', headerName: 'season' },
   { field: 'smell', headerName: 'smell' },
   { field: 'persistence_of_the_smell', headerName: 'persistence_of_the_smell', isNumeric: true },
+  { field: 'qty', headerName: 'quantity', isNumeric: true },
 ]
 
 export default columns

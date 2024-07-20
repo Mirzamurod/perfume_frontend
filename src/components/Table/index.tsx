@@ -16,7 +16,7 @@ import {
   Select,
 } from '@chakra-ui/react'
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
-import { TTable } from '@/types/table'
+import { TColumns, TTable } from '@/types/table'
 
 const Table: FC<TTable> = props => {
   const {
@@ -32,6 +32,10 @@ const Table: FC<TTable> = props => {
     pageSizeOptions = [10, 20, 50],
   } = props
   const { t } = useTranslation()
+
+  const changeSortable = (column: TColumns) => {
+    if (column.sortable) !column.renderCell && changeSort(column.field)
+  }
 
   const changeSort = (field: string) => {
     if (!sortModel) onSortModelChange!({ field, sort: 'asc' })
@@ -53,7 +57,7 @@ const Table: FC<TTable> = props => {
                 <Th
                   {...column}
                   key={column.field}
-                  onClick={() => !column.renderCell && changeSort(column.field)}
+                  onClick={() => changeSortable(column)}
                   _hover={{ cursor: 'pointer' }}
                 >
                   {t(column.headerName)}{' '}

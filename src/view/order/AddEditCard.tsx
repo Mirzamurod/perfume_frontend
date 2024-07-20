@@ -2,6 +2,16 @@ import { Fragment } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import {
+  FullscreenControl,
+  GeolocationControl,
+  Map,
+  Placemark,
+  RulerControl,
+  TypeSelector,
+  YMaps,
+  ZoomControl,
+} from 'react-yandex-maps'
+import {
   Box,
   Flex,
   FormControl,
@@ -25,11 +35,16 @@ const AddEditCard = () => {
   const {
     register,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useFormContext<TOrderForm>()
   const { fields, append, remove } = useFieldArray({ control, name: 'perfumes' })
 
   const { purchased_products } = useAppSelector(state => state.purchased_product)
+  const { suppliers } = useAppSelector(state => state.supplier)
+
+  const onClick = (e: any) => setValue('location', e.get('coords'))
 
   const inputs: TInputType[] = [
     { name: 'name', isRequired: true },
@@ -40,7 +55,7 @@ const AddEditCard = () => {
     <Box>
       <Grid
         templateColumns={{
-          sm: 'repeat(2, 1fr)',
+          md: 'repeat(2, 1fr)',
           base: 'repeat(1, 1fr)',
         }}
         gap={4}
@@ -104,10 +119,48 @@ const AddEditCard = () => {
             </GridItem>
           </Fragment>
         ))}
+        <GridItem>
+          <FormControl isInvalid={!!errors.supplierId?.message}>
+            <FormLabel>{t('choose_supplier')}</FormLabel>
+            <Select {...register('supplierId')}>
+              <option value=''>{t('choose_supplier')}</option>
+              {suppliers.map(item => (
+                <option value={item._id} key={item._id}>
+                  {item.name || item.phone}
+                </option>
+              ))}
+            </Select>
+            {errors.supplierId?.message ? (
+              <FormErrorMessage>{errors.supplierId.message}</FormErrorMessage>
+            ) : null}
+          </FormControl>
+        </GridItem>
+        <GridItem>
+          <Input name='delivery_date' type='date' />
+        </GridItem>
+        <GridItem colSpan={{ md: 2, base: 1 }}>
+          <YMaps>
+            <Map
+              width='100%'
+              height={400}
+              onClick={onClick}
+              defaultState={{ center: [41.31374, 69.245061], zoom: 11 }}
+            >
+              <FullscreenControl />
+              <GeolocationControl options={{ float: 'right' }} />
+              <RulerControl />
+              <TypeSelector options={{ float: 'right' }} />
+              <ZoomControl />
+              <Placemark geometry={watch('location')} />
+            </Map>
+          </YMaps>
+        </GridItem>
       </Grid>
       {!fields.length ? (
         <Flex mt={4} justifyContent='end' alignItems='center'>
-          <Text color='red.400' mr={4}>{t('must_have_perfume')}</Text>
+          <Text color='red.400' mr={4}>
+            {t('must_have_perfume')}
+          </Text>
           <IconButton
             icon={<AddIcon />}
             size='sm'

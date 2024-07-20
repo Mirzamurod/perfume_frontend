@@ -13,14 +13,31 @@ import {
   Flex,
   useDisclosure,
   Tooltip,
+  Text,
 } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import { TSupplier } from '@/types/supplier'
 
 const columns: TColumns[] = [
-  { field: 'name', headerName: 'name' },
+  {
+    field: 'name',
+    headerName: 'name',
+    renderCell: ({ row }: { row: TSupplier }) => <Text>{row.name || '-'}</Text>,
+  },
   { field: 'phone', headerName: 'phone' },
+  {
+    isNumeric: true,
+    field: 'orders',
+    headerName: 'orders',
+    renderCell: ({ row }: { row: TSupplier }) => <Text>{row.orders || 0}</Text>,
+  },
+  {
+    isNumeric: true,
+    field: 'finished_orders',
+    headerName: 'finished_orders',
+    renderCell: ({ row }: { row: TSupplier }) => <Text>{row.finished_orders || 0}</Text>,
+  },
   {
     field: 'action',
     headerName: 'action',
@@ -31,19 +48,19 @@ const columns: TColumns[] = [
 
       return (
         <>
-          <Tooltip label={t('edit_product')}>
+          <Tooltip label={t('edit_supplier')}>
             <IconButton
               mr={3}
               icon={<EditIcon />}
-              aria-label={t('edit_product')}
+              aria-label={t('edit_supplier')}
               as={Link}
-              href={`/products/${row._id}`}
+              href={`/suppliers/${row._id}`}
             />
           </Tooltip>
           <Popover placement='left'>
             <PopoverTrigger>
-              <Tooltip label={t('delete_product')}>
-                <IconButton icon={<DeleteIcon />} aria-label={t('delete_product')} />
+              <Tooltip label={t('delete_supplier')}>
+                <IconButton icon={<DeleteIcon />} aria-label={t('delete_supplier')} />
               </Tooltip>
             </PopoverTrigger>
             <PopoverContent textAlign='start'>

@@ -21,7 +21,7 @@ const uz = {
   address: 'Manzil',
   address_required: 'Manzil talab qilinadi',
   payment_method: "To'lov usuli",
-  quantity: 'Miqdori',
+  quantity: 'Soni',
   go_to_cart: "Savatga o'tish",
   delivery: 'Yetkazib berish',
   choose_from_map: 'Kartadan tanlash',
@@ -63,7 +63,7 @@ const uz = {
   dashboard: 'Boshqaruv paneli',
   add_product: "Mahsulot qo'shing",
   edit_product: 'Mahsulotni tahrirlash',
-  name: 'Nomi',
+  name: 'Ismi',
   color: 'Rang',
   season: 'Mavsum',
   sale_price: 'Sotish narxi',
@@ -110,6 +110,19 @@ const uz = {
   purchased_price_required: 'Sotib olingan narxi talab qilinadi',
   edit_purchased_product: 'Xarid qilingan mahsulotni tahrirlash',
   purchased_products_group: 'Sotib olingan mahsulotlar (guruh)',
+  suppliers: 'Yetkazib beruvchilar',
+  add_supplier: "Yetkazib beruvchi qo'shish",
+  finished_orders: 'Tugallangan buyurtmalar',
+  edit_supplier: 'Yetkazib beruvchini tahrirlash',
+  go_to_suppliers: "Yetkazib beruvchiga o'ting",
+  go_to_orders: "Buyurtmalarga o'ting",
+  alert_autocomplete:
+    'Sizda avtomatik toʻldirish yoqilgan boʻlishi mumkin, agar parolni oʻzgartirishni xohlamasangiz, parolni oʻchirib qoʻying.',
+  order: 'Buyurtma',
+  delivery_date: 'Yetkazib berish sanasi',
+  supplier: 'Yetkazib beruvchi',
+  choose_supplier: 'Yetkazib beruvchini tanlang',
+  edit_order: 'Buyurtmani tahrirlash',
 }
 
 export default uz

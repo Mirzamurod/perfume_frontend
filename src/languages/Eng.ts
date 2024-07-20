@@ -112,6 +112,19 @@ const eng = {
   purchased_price_required: 'Purchased price is required',
   edit_purchased_product: 'Edit purchased product',
   purchased_products_group: 'Purchased products (group)',
+  suppliers: 'Suppliers',
+  add_supplier: 'Add supplier',
+  finished_orders: 'Finished orders',
+  edit_supplier: 'Edit supplier',
+  go_to_suppliers: 'Go to supplier',
+  go_to_orders: 'Go to orders',
+  alert_autocomplete:
+    "You may have autocomplete turned on, disable password if you don't want to change the password.",
+  order: 'Order',
+  delivery_date: 'Delivery date',
+  supplier: 'Supplier',
+  choose_supplier: 'Choose supplier',
+  edit_order: 'Edit Order',
 }
 
 export type TranslationKeys = keyof typeof eng

@@ -13,6 +13,7 @@ import AddEditAction from '@/view/order/AddEditAction'
 import { TOrderForm } from '@/types/order'
 import { addOrder, editOrder, getOrder } from '@/store/order'
 import { getPurchasedProductsGroup } from '@/store/purchased_product'
+import { getSuppliers } from '@/store/supplier'
 
 const AddEditOrder = () => {
   const { t } = useTranslation()
@@ -21,6 +22,9 @@ const AddEditOrder = () => {
   const formSchema = yup.object().shape({
     name: yup.string().required(t('name_required')),
     phone: yup.string().required(t('phone_required')),
+    delivery_date: yup.string(),
+    location: yup.array(),
+    supplierId: yup.string(),
     perfumes: yup
       .array(
         yup.object().shape({
@@ -47,6 +51,7 @@ const AddEditOrder = () => {
 
   useEffect(() => {
     dispatch(getPurchasedProductsGroup())
+    dispatch(getSuppliers())
   }, [])
 
   useEffect(() => {
@@ -56,12 +61,17 @@ const AddEditOrder = () => {
   }, [router.query.addEdit])
 
   useEffect(() => {
-    if (order && purchased_products.length)
+    if (order && purchased_products.length) {
       Object.keys(order).map(key => {
         setValue(key as keyof TOrderForm, order[key as 'name'])
-        const perfumes = order.perfumes.map(item => ({ qty: item.qty, id: item.perfume._id }))
-        setValue('perfumes', perfumes)
       })
+      const perfumes = order.perfumes.map(item => ({ qty: item.qty, id: item.perfume._id }))
+      setValue('perfumes', perfumes)
+      setValue('supplierId', order.supplier?._id)
+      if (order.delivery_date)
+        setValue('delivery_date', order.delivery_date?.toString().slice(0, 10))
+      else setValue('delivery_date', '')
+    }
   }, [order, purchased_products])
 
   useEffect(() => {

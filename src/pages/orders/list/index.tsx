@@ -8,6 +8,7 @@ import { TSortModel } from '@/types/table'
 import { useAppSelector } from '@/store'
 import columns from '@/view/orders/columns'
 import { getOrders } from '@/store/order'
+import { getSuppliers } from '@/store/supplier'
 
 const Orders = () => {
   const router = useRouter()
@@ -30,6 +31,10 @@ const Orders = () => {
       })
     )
   }, [router.query.page, router.query.limit, ordering, inputValue])
+
+  useEffect(() => {
+    dispatch(getSuppliers())
+  }, [])
 
   useEffect(() => {
     if (debounceTimeout.current) {

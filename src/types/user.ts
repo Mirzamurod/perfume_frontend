@@ -1,9 +1,10 @@
-import { TError } from "./error"
+import { TError } from './error'
 
 export type UserDataType = {
-  id: number | string
-  role: string
+  _id: string
   phone: string
+  name?: string
+  role: TUserRole
 }
 
 export interface IUserStore {
@@ -19,3 +20,5 @@ export interface IRegister {
   success: boolean
   error: any
 }
+
+export type TUserRole = 'admin' | 'client' | 'supplier'

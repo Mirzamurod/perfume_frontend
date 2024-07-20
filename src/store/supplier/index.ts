@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { perfume, getsupplier, getsuppliers } from '@/store/apis'
-import { TSupplierForm, TSupplierState } from '@/types/supplier'
+import { TSupplierForm, TSupplierRole, TSupplierState } from '@/types/supplier'
 
 const initialState: TSupplierState = {
   isLoading: false,
@@ -19,6 +19,7 @@ const supplier = createSlice({
     onStartGetSuppliers: state => {
       state.isLoading = true
       state.success = false
+      state.errors = null
     },
     onSuccessGetSuppliers: (state, { payload }) => {
       state.suppliers = payload.data

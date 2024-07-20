@@ -1,4 +1,5 @@
 import { TError } from './error'
+import { TUserRole } from './user'
 
 export type TSupplierState = {
   isLoading: boolean
@@ -13,11 +14,13 @@ export type TSupplier = {
   _id: string
   name?: string
   phone: string
-  role: 'admin' | 'client' | 'supplier'
+  orders: number
+  finished_orders: number
+  role: TUserRole
 }
 
 export type TSupplierForm = {
-  name: string
+  name?: string
   phone: string
-  password: string
+  password?: string
 }
