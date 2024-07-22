@@ -5,17 +5,18 @@ import { AddIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Input } from '@chakra-ui/react'
 
 interface IProps {
+  heading: string
   search: string
   setSearch: (value: string) => void
 }
 
 const TableHeader: FC<IProps> = props => {
-  const { search, setSearch } = props
+  const { heading, search, setSearch } = props
   const { t } = useTranslation()
 
   return (
     <Box>
-      <Heading>{t('orders')}</Heading>
+      <Heading>{t(heading)}</Heading>
       <Flex justifyContent='space-between' my={4}>
         <Input
           placeholder={t('search')}

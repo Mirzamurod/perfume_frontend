@@ -34,7 +34,7 @@ const ViewOrder = () => {
     <Box>
       <Flex justifyContent='space-between'>
         <Heading>{t('order')}</Heading>
-        <Button as={Link} variant='outline' colorScheme='teal' href='/orders/list?page=1&limit=10'>
+        <Button as={Link} href='/orders/list?page=1&limit=10'>
           {t('go_to_orders')}
         </Button>
       </Flex>
@@ -77,7 +77,7 @@ const ViewOrder = () => {
           />
         </Box>
         <Box mt={3}>
-          {order?.location ? (
+          {order?.location?.length ? (
             <YMaps>
               <Map
                 width='100%'

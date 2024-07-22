@@ -18,11 +18,12 @@ const Orders = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const debounceTimeout = useRef<NodeJS.Timeout | number | null>(null)
 
-  const { orders, isLoading, pageCount } = useAppSelector(state => state.order)
+  const { orders, isLoading, pageCount, success } = useAppSelector(state => state.order)
 
   useEffect(() => {
     dispatch(
       getOrders({
+        status: 'added',
         page: router.query.page || 1,
         limit: router.query.limit || 10,
         sortName: ordering?.field,
@@ -35,6 +36,20 @@ const Orders = () => {
   useEffect(() => {
     dispatch(getSuppliers())
   }, [])
+
+  useEffect(() => {
+    if (success)
+      dispatch(
+        getOrders({
+          status: 'added',
+          page: router.query.page || 1,
+          limit: router.query.limit || 10,
+          sortName: ordering?.field,
+          sortValue: ordering?.sort,
+          search: inputValue,
+        })
+      )
+  }, [router.query.page, router.query.limit, ordering, inputValue, success])
 
   useEffect(() => {
     if (debounceTimeout.current) {

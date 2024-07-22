@@ -17,7 +17,7 @@ const Products = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const debounceTimeout = useRef<NodeJS.Timeout | number | null>(null)
 
-  const { purchased_products, isLoading, pageCount } = useAppSelector(
+  const { purchased_products, isLoading, pageCount, success } = useAppSelector(
     state => state.purchased_product
   )
 
@@ -32,6 +32,19 @@ const Products = () => {
       })
     )
   }, [router.query.page, router.query.limit, ordering, inputValue])
+
+  useEffect(() => {
+    if (success)
+      dispatch(
+        getPurchasedProducts({
+          page: router.query.page || 1,
+          limit: router.query.limit || 10,
+          sortName: ordering?.field,
+          sortValue: ordering?.sort,
+          search: inputValue,
+        })
+      )
+  }, [router.query.page, router.query.limit, ordering, inputValue, success])
 
   useEffect(() => {
     if (debounceTimeout.current) {

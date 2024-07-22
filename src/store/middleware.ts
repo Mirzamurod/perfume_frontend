@@ -2,6 +2,7 @@ import axios from 'axios'
 import { createStandaloneToast } from '@chakra-ui/react'
 import { TPerfume } from '@/types/middleware'
 import i18n from '@/languages/i18n'
+import { deleteUser } from './user/login'
 
 const { toast } = createStandaloneToast()
 
@@ -9,7 +10,6 @@ const middleware =
   ({ dispatch }: { dispatch: any }) =>
   (next: any) =>
   (action: { type: string; payload: TPerfume }) => {
-
     if (action.type !== 'perfume') {
       next(action)
       return
@@ -48,17 +48,20 @@ const middleware =
         } else dispatch({ type: onFail, payload: res })
       })
       .catch(error => {
-        const data = error?.response?.data
-        if (data?.message)
-          toast({
-            status: 'warning',
-            position: 'top-right',
-            isClosable: true,
-            variant: 'left-accent',
-            title: i18n?.t(data?.message),
-          })
+        if (error?.response?.status) dispatch(deleteUser())
+        else {
+          const data = error?.response?.data
+          if (data?.message)
+            toast({
+              status: 'warning',
+              position: 'top-right',
+              isClosable: true,
+              variant: 'left-accent',
+              title: i18n?.t(data?.message),
+            })
 
-        dispatch({ type: onFail, payload: error?.response?.data })
+          dispatch({ type: onFail, payload: error?.response?.data })
+        }
       })
   }
 

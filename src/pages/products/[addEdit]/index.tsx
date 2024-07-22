@@ -66,7 +66,7 @@ const AddEditProduct = () => {
     if (router.query.addEdit && router.query.addEdit !== 'add')
       dispatch(getProduct(router.query.addEdit as string))
     else reset()
-  }, [router.query.addEdit])
+  }, [router.query.addEdit, reset])
 
   useEffect(() => {
     if (product)

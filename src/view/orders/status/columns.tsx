@@ -29,7 +29,13 @@ const columns: TColumns[] = [
   {
     field: 'supplier',
     headerName: 'supplier',
-    renderCell: ({ row }: { row: TOrder }) => <StatusEdit order={row} />,
+    // renderCell: ({ row }: { row: TOrder }) => <StatusEdit order={row} />,
+    renderCell: ({ row }: { row: TOrder }) => <Text>{row.supplier?._id}</Text>,
+  },
+  {
+    field: 'status',
+    headerName: 'status',
+    renderCell: ({ row }: { row: TOrder }) => <Text>{row.status}</Text>,
   },
   {
     field: 'action',
@@ -48,7 +54,7 @@ const columns: TColumns[] = [
               href={`/orders/view/${row._id}`}
             />
           </Tooltip>
-          <Tooltip label={t('edit_order')}>
+          {/* <Tooltip label={t('edit_order')}>
             <IconButton
               icon={<EditIcon />}
               aria-label={t('edit_order')}
@@ -61,7 +67,7 @@ const columns: TColumns[] = [
             selector='order'
             deleteAction={deleteOrder}
             label='delete_order'
-          />
+          /> */}
         </HStack>
       )
     },

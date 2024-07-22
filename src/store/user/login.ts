@@ -44,9 +44,9 @@ const login = createSlice({
     getUserData: (state, { payload }) => {
       state.user = payload
     },
-    deleteUser: state => {
-      state.user = null
+    deleteUser: () => {
       localStorage.removeItem('perfume')
+      window.location.reload()
     },
   },
 })

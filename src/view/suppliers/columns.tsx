@@ -1,23 +1,11 @@
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import {
-  IconButton,
-  Popover,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  PopoverArrow,
-  Button,
-  Flex,
-  useDisclosure,
-  Tooltip,
-  Text,
-} from '@chakra-ui/react'
+import { IconButton, Tooltip, Text } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import { TSupplier } from '@/types/supplier'
+import DeletePopover from '@/components/DeletePopover'
+import { deleteSupplier } from '@/store/supplier'
 
 const columns: TColumns[] = [
   {
@@ -43,7 +31,6 @@ const columns: TColumns[] = [
     headerName: 'action',
     isNumeric: true,
     renderCell: ({ row }: { row: TSupplier }) => {
-      const { onOpen, onClose, isOpen } = useDisclosure()
       const { t } = useTranslation()
 
       return (
@@ -57,26 +44,12 @@ const columns: TColumns[] = [
               href={`/suppliers/${row._id}`}
             />
           </Tooltip>
-          <Popover placement='left'>
-            <PopoverTrigger>
-              <Tooltip label={t('delete_supplier')}>
-                <IconButton icon={<DeleteIcon />} aria-label={t('delete_supplier')} />
-              </Tooltip>
-            </PopoverTrigger>
-            <PopoverContent textAlign='start'>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>are you sure you want to delete?</PopoverHeader>
-              <PopoverBody>
-                <Flex justifyContent='space-between'>
-                  <Button colorScheme='red' variant='outline'>
-                    {t('delete')}
-                  </Button>
-                  <Button variant='outline'>{t('close')}</Button>
-                </Flex>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
+          <DeletePopover
+            data={row}
+            selector='supplier'
+            deleteAction={deleteSupplier}
+            label='delete_supplier'
+          />
         </>
       )
     },

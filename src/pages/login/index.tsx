@@ -12,6 +12,7 @@ import { TranslationKeys, t } from '@/languages/Eng'
 import BlankLayout from '@/components/layout/BlankLayout'
 import Input from '@/components/Input'
 import PasswordInput from '@/components/PasswordInput'
+import navbar from '@/navigation/vertical'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const Login = () => {
 
   const { handleSubmit, setError } = methods
 
-  const { errors: loginErrors, success, isLoading } = useAppSelector(state => state.login)
+  const { errors: loginErrors, success, isLoading, user } = useAppSelector(state => state.login)
 
   useEffect(() => {
     if (loginErrors?.length)
@@ -38,8 +39,8 @@ const Login = () => {
   }, [loginErrors])
 
   useEffect(() => {
-    if (success) router.replace('/')
-  }, [success])
+    if (success && user) router.replace(navbar[user.role!][1].link!)
+  }, [success, user])
 
   const onSubmit = (values: TRegister) => dispatch(userLogin(values))
 

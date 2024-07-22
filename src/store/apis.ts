@@ -4,7 +4,7 @@ import { TPerfume } from '@/types/middleware'
 export const perfume = createAction<TPerfume>('perfume')
 
 // users
-export const register = 'users'
+export const registeruser = 'users'
 export const loginUser = 'users/login'
 export const userprofile = 'users'
 export const userupdate = 'users/update'

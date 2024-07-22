@@ -120,6 +120,18 @@ const AddEditCard = () => {
           </Fragment>
         ))}
         <GridItem>
+          <FormControl isInvalid={!!errors.payment_method?.message} isRequired>
+            <FormLabel>{t('choose_payment_method')}</FormLabel>
+            <Select {...register('payment_method')}>
+              <option value='cash'>{t('cash')}</option>
+              <option value='card'>{t('card')}</option>
+            </Select>
+            {errors.payment_method?.message ? (
+              <FormErrorMessage>{errors.payment_method.message}</FormErrorMessage>
+            ) : null}
+          </FormControl>
+        </GridItem>
+        <GridItem>
           <FormControl isInvalid={!!errors.supplierId?.message}>
             <FormLabel>{t('choose_supplier')}</FormLabel>
             <Select {...register('supplierId')}>

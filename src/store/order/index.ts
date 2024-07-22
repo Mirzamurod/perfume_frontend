@@ -19,6 +19,8 @@ const order = createSlice({
     onStartGetOrders: state => {
       state.isLoading = true
       state.success = false
+      state.errors = null
+      state.order = null
     },
     onSuccessGetOrders: (state, { payload }) => {
       state.orders = payload.data
@@ -93,7 +95,7 @@ export const addOrder = (data: TOrderForm) =>
 export const editOrder = (id: string, data: TOrderForm) =>
   perfume({
     url: getorder + id,
-    method: 'put',
+    method: 'patch',
     data,
     onStart: order.actions.onStartAddOrder.type,
     onSuccess: order.actions.onSuccessAddOrder.type,

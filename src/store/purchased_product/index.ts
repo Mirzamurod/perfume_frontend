@@ -26,6 +26,8 @@ const purchased_product = createSlice({
     onStartGetPurchasedProducts: state => {
       state.isLoading = true
       state.success = false
+      state.purchased_product = null
+      state.errors = null
     },
     onSuccessGetPurchasedProducts: (state, { payload }) => {
       state.purchased_products = payload.data

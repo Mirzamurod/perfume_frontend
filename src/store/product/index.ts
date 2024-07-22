@@ -21,6 +21,7 @@ const product = createSlice({
     onStartGetProducts: state => {
       state.isLoading = true
       state.success = false
+      state.product = null
     },
     onSuccessGetProducts: (state, { payload }) => {
       state.products = payload.data
