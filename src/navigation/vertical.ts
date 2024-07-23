@@ -133,6 +133,14 @@ const navbar: { [x: string]: TNavbar[] } = {
     { type: 'heading', label: 'orders' },
     {
       type: 'link',
+      label: 'orders',
+      pathname: '/orders/added',
+      link: '/orders/added',
+      query: { page: 1, limit: 10 },
+      icon: MdListAlt,
+    },
+    {
+      type: 'link',
       label: 'accepted_orders',
       pathname: '/orders/accepted',
       link: '/orders/accepted',

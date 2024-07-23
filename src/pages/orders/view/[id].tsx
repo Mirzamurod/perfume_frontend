@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
@@ -34,9 +33,7 @@ const ViewOrder = () => {
     <Box>
       <Flex justifyContent='space-between'>
         <Heading>{t('order')}</Heading>
-        <Button as={Link} href='/orders/list?page=1&limit=10'>
-          {t('go_to_orders')}
-        </Button>
+        <Button onClick={() => router.back()}>{t('go_to_orders')}</Button>
       </Flex>
       <Box mt={3}>
         {isLoading ? (
@@ -95,12 +92,7 @@ const ViewOrder = () => {
           ) : null}
         </Box>
         <Flex mt={4} justifyContent='end'>
-          <Button
-            as={Link}
-            variant='outline'
-            colorScheme='teal'
-            href='/orders/list?page=1&limit=10'
-          >
+          <Button variant='outline' colorScheme='teal' onClick={() => router.back()}>
             {t('go_to_orders')}
           </Button>
         </Flex>

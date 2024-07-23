@@ -91,6 +91,10 @@ const AddEditCard = () => {
                     type='number'
                     borderRightRadius={0}
                     placeholder={t('quantity')}
+                    max={
+                      purchased_products.find(item => item._id === watch(`perfumes.${index}.id`))
+                        ?.count
+                    }
                     {...register(`perfumes.${index}.qty`, { valueAsNumber: true })}
                   />
                   <IconButton

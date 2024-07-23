@@ -10,7 +10,7 @@ import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import { useAppSelector } from '@/store'
 import AddEditCard from '@/view/order/AddEditCard'
 import AddEditAction from '@/view/order/AddEditAction'
-import { TOrderForm, TPaymentMethod } from '@/types/order'
+import { TOrderForm, TOrderStatus, TPaymentMethod } from '@/types/order'
 import { addOrder, editOrder, getOrder } from '@/store/order'
 import { getPurchasedProductsGroup } from '@/store/purchased_product'
 import { getSuppliers } from '@/store/supplier'
@@ -29,6 +29,10 @@ const AddEditOrder = () => {
     delivery_date: yup.string(),
     location: yup.array(),
     supplierId: yup.string(),
+    status: yup
+      .mixed<TOrderStatus>()
+      .oneOf(['added', 'accepted', 'cancelled', 'on_the_way', 'sold'])
+      .required(),
     perfumes: yup
       .array(
         yup.object().shape({
@@ -41,7 +45,13 @@ const AddEditOrder = () => {
   const methods = useForm<TOrderForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { name: '', phone: '', payment_method: 'cash', perfumes: [{ qty: 0, id: '' }] },
+    defaultValues: {
+      name: '',
+      phone: '',
+      payment_method: 'cash',
+      status: 'added',
+      perfumes: [{ qty: 0, id: '' }],
+    },
   })
   const { handleSubmit, setValue, setError, reset } = methods
 

@@ -1,8 +1,9 @@
-import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { UserDataType } from '@/types/user'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 import {
+  Avatar,
+  AvatarBadge,
   Flex,
   IconButton,
   Menu,
@@ -10,7 +11,6 @@ import {
   MenuItem,
   MenuList,
   Text,
-  VStack,
 } from '@chakra-ui/react'
 import { deleteUser } from '@/store/user/login'
 
@@ -27,9 +27,14 @@ export const AvatarBox = ({ collapse, user }: { collapse: boolean; user: UserDat
       flexDirection={collapse ? 'row' : 'column-reverse'}
     >
       {collapse ? (
-        <Text fontSize='xl' fontWeight='bold' pb={0} lineHeight={0}>
-          {user.name || user.phone}
-        </Text>
+        <Flex alignItems='center'>
+          <Avatar size='sm' mr={3}>
+            <AvatarBadge boxSize='1em' bg={`${user.block ? 'gray' : 'green'}.500`} />
+          </Avatar>
+          <Text fontSize='xl' fontWeight='bold' pb={0} lineHeight={0}>
+            {user.name || user.phone}
+          </Text>
+        </Flex>
       ) : null}
 
       <Menu>
@@ -43,9 +48,6 @@ export const AvatarBox = ({ collapse, user }: { collapse: boolean; user: UserDat
           fontSize={20}
         />
         <MenuList>
-          <MenuItem as={Link} href='/profile'>
-            Profile
-          </MenuItem>
           <MenuItem onClick={() => dispatch(deleteUser())}>Logout</MenuItem>
         </MenuList>
       </Menu>

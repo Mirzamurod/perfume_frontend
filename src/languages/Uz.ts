@@ -136,7 +136,7 @@ const uz = {
   choose_payment_method: "To'lov usulini tanlang",
   accepted: 'Qabul qilingan',
   on_the_way: "Yo'lda",
-  sold: 'Sotilgan',
+  sold: 'Sotildi',
   cancelled: 'Bekor qilingan',
   accepted_orders: 'Qabul qilingan buyurtmalar',
   on_the_way_orders: "Yo'ldagi buyurtmalar",

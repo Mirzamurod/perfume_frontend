@@ -18,7 +18,7 @@ export type TOrder = {
   location?: number[]
   delivery_date?: Date
   supplier?: UserDataType
-  status: 'added' | 'on_the_way' | 'accepted' | 'sold' | 'cancelled'
+  status: TOrderState
   perfumes: { perfume: TProduct; qty: number }[]
 }
 
@@ -29,7 +29,9 @@ export type TOrderForm = {
   location?: number[]
   delivery_date?: string
   supplierId?: string
+  status: TOrderStatus
   perfumes: { qty: number; id: string }[]
 }
 
 export type TPaymentMethod = 'cash' | 'card'
+export type TOrderStatus = 'added' | 'on_the_way' | 'accepted' | 'sold' | 'cancelled'

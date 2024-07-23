@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { AddIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Input } from '@chakra-ui/react'
+import { useAppSelector } from '@/store'
 
 interface IProps {
   heading: string
@@ -14,6 +15,8 @@ const TableHeader: FC<IProps> = props => {
   const { heading, search, setSearch } = props
   const { t } = useTranslation()
 
+  const { user } = useAppSelector(state => state.login)
+
   return (
     <Box>
       <Heading>{t(heading)}</Heading>
@@ -24,15 +27,17 @@ const TableHeader: FC<IProps> = props => {
           value={search}
           onChange={({ target }) => setSearch(target.value)}
         />
-        <Button
-          colorScheme='teal'
-          variant='outline'
-          leftIcon={<AddIcon />}
-          as={Link}
-          href='/orders/add'
-        >
-          {t('add_order')}
-        </Button>
+        {user?.role === 'client' ? (
+          <Button
+            colorScheme='teal'
+            variant='outline'
+            leftIcon={<AddIcon />}
+            as={Link}
+            href='/orders/add'
+          >
+            {t('add_order')}
+          </Button>
+        ) : null}
       </Flex>
     </Box>
   )

@@ -5,6 +5,7 @@ export type UserDataType = {
   phone: string
   name?: string
   role: TUserRole
+  block: boolean
 }
 
 export interface IUserStore {
