@@ -18,7 +18,7 @@ export const getproduct = 'product/'
 // purchased products
 export const getpurchasedproducts = 'purchased-product'
 export const getpurchasedproduct = 'purchased-product/'
-export const getpurchasedproductsgroup = 'purchased-product/group'
+export const getproductgroups = 'product-group'
 
 // order
 export const getorders = 'order'

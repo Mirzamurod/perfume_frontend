@@ -7,7 +7,7 @@ const AddEditAction = () => {
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { isLoading } = useAppSelector(state => state.product)
+  const { isLoading } = useAppSelector(state => state.purchased_product)
 
   return (
     <Flex mt={4} justifyContent='end'>
@@ -16,9 +16,9 @@ const AddEditAction = () => {
         variant='outline'
         colorScheme='teal'
         isLoading={isLoading}
-        loadingText={t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
+        loadingText={t(router.query.addEdit === 'add' ? 'add_purchased_product' : 'edit_purchased_product')}
       >
-        {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
+        {t(router.query.addEdit === 'add' ? 'add_purchased_product' : 'edit_purchased_product')}
       </Button>
     </Flex>
   )

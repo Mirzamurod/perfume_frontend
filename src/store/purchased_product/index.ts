@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  perfume,
-  getpurchasedproduct,
-  getpurchasedproducts,
-  getpurchasedproductsgroup,
-} from '@/store/apis'
+import { perfume, getpurchasedproduct, getpurchasedproducts, getproductgroups } from '@/store/apis'
 import { TPurchasedProductForm, TPurchasedProductState } from '@/types/purchasedProduct'
 
 const initialState: TPurchasedProductState = {
@@ -97,7 +92,7 @@ export const getPurchasedProducts = (params?: any) =>
 
 export const getPurchasedProductsGroup = (params?: any) =>
   perfume({
-    url: getpurchasedproductsgroup,
+    url: getproductgroups,
     method: 'get',
     params,
     onStart: purchased_product.actions.onStartGetPurchasedProducts.type,

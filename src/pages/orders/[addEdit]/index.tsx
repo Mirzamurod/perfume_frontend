@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -19,6 +19,7 @@ const AddEditOrder = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const dispatch = useDispatch()
+  const [count, setCount] = useState<number[]>([])
   const formSchema = yup.object().shape({
     name: yup.string().required(t('name_required')),
     phone: yup.string().required(t('phone_required')),
@@ -85,6 +86,9 @@ const AddEditOrder = () => {
       if (order.delivery_date)
         setValue('delivery_date', order?.delivery_date?.toString().slice(0, 10))
       else setValue('delivery_date', '')
+
+      let data = order.perfumes.map(item => item.qty)
+      setCount(data)
     }
   }, [order, purchased_products])
 
@@ -112,7 +116,7 @@ const AddEditOrder = () => {
           </Button>
         </Flex>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <AddEditCard />
+          <AddEditCard count={count} order={order!} />
           <AddEditAction />
         </form>
       </Box>

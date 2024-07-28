@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { FC, Fragment } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import {
@@ -23,14 +23,21 @@ import {
   FormErrorMessage,
   Select,
   Text,
+  FormHelperText,
 } from '@chakra-ui/react'
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
 import Input from '@/components/Input'
 import { TInputType } from '@/types/input'
-import { TOrderForm } from '@/types/order'
+import { TOrder, TOrderForm } from '@/types/order'
 import { useAppSelector } from '@/store'
 
-const AddEditCard = () => {
+interface IProps {
+  count?: number[]
+  order: TOrder
+}
+
+const AddEditCard: FC<IProps> = props => {
+  const { count, order } = props
   const { t } = useTranslation()
   const {
     register,
@@ -53,13 +60,7 @@ const AddEditCard = () => {
 
   return (
     <Box>
-      <Grid
-        templateColumns={{
-          md: 'repeat(2, 1fr)',
-          base: 'repeat(1, 1fr)',
-        }}
-        gap={4}
-      >
+      <Grid gap={4} templateColumns={{ md: 'repeat(2, 1fr)', base: 'repeat(1, 1fr)' }}>
         {inputs.map(item => (
           <GridItem key={item.name}>
             <Input {...item} />
@@ -93,7 +94,7 @@ const AddEditCard = () => {
                     placeholder={t('quantity')}
                     max={
                       purchased_products.find(item => item._id === watch(`perfumes.${index}.id`))
-                        ?.count
+                        ?.count! + (count!?.[index] ?? 0)
                     }
                     {...register(`perfumes.${index}.qty`, { valueAsNumber: true })}
                   />
@@ -114,6 +115,11 @@ const AddEditCard = () => {
                     onClick={() => remove(index)}
                   />
                 </Flex>
+                <FormHelperText>
+                  {watch(`perfumes.${index}.qty`) || 0}/
+                  {purchased_products.find(item => item._id === watch(`perfumes.${index}.id`))
+                    ?.count! + (count!?.[index] ?? 0)}
+                </FormHelperText>
                 {errors.perfumes?.[index]?.qty?.message ? (
                   <FormErrorMessage>
                     {t(errors.perfumes?.[index]?.qty?.message as string)}
