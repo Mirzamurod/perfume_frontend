@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Box, Button, Flex, Heading } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, useToast } from '@chakra-ui/react'
 import { useAppSelector } from '@/store'
 import AddEditCard from '@/view/order/AddEditCard'
 import AddEditAction from '@/view/order/AddEditAction'
@@ -19,6 +19,7 @@ const AddEditOrder = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const dispatch = useDispatch()
+  const toast = useToast()
   const [count, setCount] = useState<number[]>([])
   const formSchema = yup.object().shape({
     name: yup.string().required(t('name_required')),
@@ -60,8 +61,35 @@ const AddEditOrder = () => {
   const { purchased_products } = useAppSelector(state => state.purchased_product)
 
   const onSubmit = (values: TOrderForm) => {
-    if (router.query.addEdit === 'add') dispatch(addOrder(values))
-    else dispatch(editOrder(router.query.addEdit as string, values))
+    const mergedItems: { id: string; qty: number }[] = Object.values(
+      values.perfumes.reduce((acc, { qty, id }) => {
+        // @ts-ignore
+        acc[id] = acc[id] || { qty: 0, id }
+        // @ts-ignore
+        acc[id].qty += qty
+        return acc
+      }, {})
+    )
+
+    const items = purchased_products.map(i => {
+      const match = order?.perfumes?.find(it => i._id === it.perfume._id)
+      if (match?.qty) {
+        return { ...i, count: i.count + match.qty }
+      } else {
+        return i
+      }
+    })
+
+    const result = mergedItems.some(item1Obj => {
+      const match = items.find(item2Obj => item2Obj._id === item1Obj.id)
+      return match ? item1Obj.qty > match.count : false
+    })
+
+    if (result) toast({ status: 'warning', title: t('product_count_incorrect') })
+    else {
+      if (router.query.addEdit === 'add') dispatch(addOrder(values))
+      else dispatch(editOrder(router.query.addEdit as string, values))
+    }
   }
 
   useEffect(() => {

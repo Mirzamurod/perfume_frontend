@@ -89,6 +89,7 @@ const AddEditCard: FC<IProps> = props => {
                 <FormLabel>{t('quantity')}</FormLabel>
                 <Flex>
                   <ChakraInput
+                    min={0}
                     type='number'
                     borderRightRadius={0}
                     placeholder={t('quantity')}
@@ -115,11 +116,11 @@ const AddEditCard: FC<IProps> = props => {
                     onClick={() => remove(index)}
                   />
                 </Flex>
-                <FormHelperText>
+                {/* <FormHelperText>
                   {watch(`perfumes.${index}.qty`) || 0}/
-                  {purchased_products.find(item => item._id === watch(`perfumes.${index}.id`))
-                    ?.count! + (count!?.[index] ?? 0)}
-                </FormHelperText>
+                  {(purchased_products.find(item => item._id === watch(`perfumes.${index}.id`))
+                    ?.count! ?? 0) + (count!?.[index] ?? 0)}
+                </FormHelperText> */}
                 {errors.perfumes?.[index]?.qty?.message ? (
                   <FormErrorMessage>
                     {t(errors.perfumes?.[index]?.qty?.message as string)}

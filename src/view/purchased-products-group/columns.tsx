@@ -9,7 +9,6 @@ const columns: TColumns[] = [
     renderCell: ({ row }: { row: TPurchasedProduct }) => <Text>{row.product.name}</Text>,
   },
   { field: 'count', headerName: 'count', isNumeric: true },
-  { field: 'purchased_price', headerName: 'purchased_price', isNumeric: true },
   { field: 'sale_price', headerName: 'sale_price', isNumeric: true },
 ]
 

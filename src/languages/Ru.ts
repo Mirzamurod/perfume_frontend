@@ -143,6 +143,7 @@ const ru = {
   sold_orders: 'Проданные заказы',
   cancelled_orders: 'Отмененные заказы',
   status: 'Статус',
+  product_count_incorrect: 'Количество продуктов неверное',
 }
 
 export default ru

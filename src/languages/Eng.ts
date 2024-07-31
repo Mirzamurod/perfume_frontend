@@ -145,6 +145,7 @@ const eng = {
   sold_orders: 'Sold orders',
   cancelled_orders: 'Cancelled orders',
   status: 'Status',
+  product_count_incorrect: 'The product count is incorrect',
 }
 
 export type TranslationKeys = keyof typeof eng

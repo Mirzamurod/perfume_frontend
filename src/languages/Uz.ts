@@ -143,6 +143,7 @@ const uz = {
   sold_orders: 'Sotilgan buyurtmalar',
   cancelled_orders: 'Bekor qilingan buyurtmalar',
   status: 'Holat',
+  product_count_incorrect: "Mahsulotlar soni noto'g'ri",
 }
 
 export default uz
