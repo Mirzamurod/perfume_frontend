@@ -10,6 +10,8 @@ import {
   MdOutlineInventory2,
   MdPermIdentity,
   MdPublishedWithChanges,
+  MdOutlineGroup,
+  MdOutlineGroupAdd,
 } from 'react-icons/md'
 import { TNavbar } from '@/types/navbar'
 
@@ -127,7 +129,28 @@ const navbar: { [x: string]: TNavbar[] } = {
       icon: MdControlPoint,
     },
   ],
-  admin: [],
+  admin: [
+    // dashboard
+    { type: 'heading', label: 'dashboard' },
+    { type: 'link', label: 'dashboard', pathname: '/', link: '/', icon: MdDataThresholding },
+    // users
+    { type: 'heading', label: 'users' },
+    {
+      type: 'link',
+      label: 'users',
+      pathname: '/users/list',
+      link: '/users/list',
+      query: { page: 1, limit: 10 },
+      icon: MdOutlineGroup,
+    },
+    {
+      type: 'link',
+      label: 'add_user',
+      pathname: '/users/add',
+      link: '/users/add',
+      icon: MdOutlineGroupAdd,
+    },
+  ],
   supplier: [
     // orders
     { type: 'heading', label: 'orders' },

@@ -6,7 +6,7 @@ const initialState: TUsersState = {
   isLoading: false,
   users: [],
   success: false,
-  count: 0,
+  pageCount: 0,
 }
 
 const users = createSlice({
@@ -21,8 +21,8 @@ const users = createSlice({
     },
     onSuccessGetUsers: (state, { payload }) => {
       state.isLoading = false
-      state.users = payload.items
-      state.count = payload.total_items
+      state.users = payload.data
+      state.pageCount = payload.pageLists
     },
     onFailGetUsers: state => {
       state.isLoading = false
