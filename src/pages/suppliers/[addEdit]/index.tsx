@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Alert, AlertIcon, Box, Button, Flex, Heading } from '@chakra-ui/react'
+import { Alert, AlertIcon, Box, Button, Heading, Stack } from '@chakra-ui/react'
 import { useAppSelector } from '@/store'
 import AddEditCard from '@/view/supplier/AddEditCard'
 import AddEditAction from '@/view/supplier/AddEditAction'
@@ -17,11 +17,9 @@ const AddEditSupplier = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const dispatch = useDispatch()
-  const isAddMode = router.query.addEdit === 'add'
   const formSchema = yup.object().shape({
     name: yup.string(),
     phone: yup.string().required(t('phone_required')),
-    // password: yup.string().required(t('password_required')),
     password: yup.string(),
   })
   const methods = useForm<TSupplierForm>({
@@ -32,7 +30,6 @@ const AddEditSupplier = () => {
   const { handleSubmit, setValue, setError, reset } = methods
 
   const {
-    isLoading,
     success,
     errors: supplierErrors,
     supplier,
@@ -73,14 +70,12 @@ const AddEditSupplier = () => {
   return (
     <FormProvider {...methods}>
       <Box>
-        <Flex justifyContent='space-between'>
-          <Heading mb={4}>
-            {t(router.query.addEdit === 'add' ? 'add_supplier' : 'edit_supplier')}
-          </Heading>
+        <Stack mb={4} justifyContent='space-between' flexDirection={{ base: 'column', md: 'row' }}>
+          <Heading>{t(router.query.addEdit === 'add' ? 'add_supplier' : 'edit_supplier')}</Heading>
           <Button as={Link} href='/suppliers/list?page=1&limit=10'>
             {t('go_to_suppliers')}
           </Button>
-        </Flex>
+        </Stack>
         {router.query.addEdit !== 'add' ? (
           <Alert status='warning' borderRadius={6} mb={3}>
             <AlertIcon />

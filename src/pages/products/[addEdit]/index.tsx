@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Box, Button, Flex, Heading } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack } from '@chakra-ui/react'
 import { GenderTypes, SeasonTypes, TProductForm, TypeTypes } from '@/types/product'
 import { addProduct, editProduct, getProduct } from '@/store/product'
 import { useAppSelector } from '@/store'
@@ -51,7 +51,6 @@ const AddEditProduct = () => {
   const { handleSubmit, setValue, setError, reset } = methods
 
   const {
-    isLoading,
     success,
     errors: productErrors,
     product,
@@ -92,14 +91,12 @@ const AddEditProduct = () => {
   return (
     <FormProvider {...methods}>
       <Box>
-        <Flex justifyContent='space-between'>
-          <Heading mb={4}>
-            {t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}
-          </Heading>
+        <Stack mb={4} justifyContent='space-between' flexDirection={{ base: 'column', sm: 'row' }}>
+          <Heading>{t(router.query.addEdit === 'add' ? 'add_product' : 'edit_product')}</Heading>
           <Button as={Link} href='/products/list?page=1&limit=10'>
             {t('go_to_products')}
           </Button>
-        </Flex>
+        </Stack>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AddEditCard />
           <AddEditAction />

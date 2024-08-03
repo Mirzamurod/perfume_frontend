@@ -2,7 +2,7 @@ import { FC } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { AddIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Heading, Input } from '@chakra-ui/react'
+import { Box, Button, Heading, Input, Stack } from '@chakra-ui/react'
 
 interface IProps {
   search: string
@@ -16,7 +16,7 @@ const TableHeader: FC<IProps> = props => {
   return (
     <Box>
       <Heading mb={2}>{t('purchased_products')}</Heading>
-      <Flex justifyContent='space-between' mb={4}>
+      <Stack mb={4} justifyContent='space-between' flexDirection={{ base: 'column', md: 'row' }}>
         <Input
           placeholder={t('search')}
           width='auto'
@@ -32,7 +32,7 @@ const TableHeader: FC<IProps> = props => {
         >
           {t('add_purchased_product')}
         </Button>
-      </Flex>
+      </Stack>
     </Box>
   )
 }

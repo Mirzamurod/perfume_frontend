@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { perfume, getsupplier, getsuppliers } from '@/store/apis'
-import { TSupplierForm, TSupplierState } from '@/types/supplier'
+import { TSupplierEditForm, TSupplierForm, TSupplierState } from '@/types/supplier'
 
 const initialState: TSupplierState = {
   isLoading: false,
@@ -92,10 +92,10 @@ export const addSupplier = (data: TSupplierForm) =>
     onFail: supplier.actions.onFailAddSupplier.type,
   })
 
-export const editSupplier = (id: string, data: TSupplierForm) =>
+export const editSupplier = (id: string, data: TSupplierEditForm) =>
   perfume({
     url: getsupplier + id,
-    method: 'put',
+    method: 'patch',
     data,
     onStart: supplier.actions.onStartAddSupplier.type,
     onSuccess: supplier.actions.onSuccessAddSupplier.type,

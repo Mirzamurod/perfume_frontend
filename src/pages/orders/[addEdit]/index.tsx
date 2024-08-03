@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { Box, Button, Flex, Heading, useToast } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack, useToast } from '@chakra-ui/react'
 import { useAppSelector } from '@/store'
 import AddEditCard from '@/view/order/AddEditCard'
 import AddEditAction from '@/view/order/AddEditAction'
@@ -137,12 +137,12 @@ const AddEditOrder = () => {
   return (
     <FormProvider {...methods}>
       <Box>
-        <Flex justifyContent='space-between'>
-          <Heading mb={4}>{t(router.query.addEdit === 'add' ? 'add_order' : 'edit_order')}</Heading>
+        <Stack mb={4} justifyContent='space-between' flexDirection={{ base: 'column', md: 'row' }}>
+          <Heading>{t(router.query.addEdit === 'add' ? 'add_order' : 'edit_order')}</Heading>
           <Button as={Link} href='/orders/list?limit=10&page=1'>
             {t('go_to_orders')}
           </Button>
-        </Flex>
+        </Stack>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AddEditCard count={count} order={order!} />
           <AddEditAction />

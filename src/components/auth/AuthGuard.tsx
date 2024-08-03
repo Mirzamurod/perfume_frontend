@@ -39,6 +39,8 @@ const AuthGuard = (props: AuthGuardProps) => {
     return fallback
   }
 
+  if (user && user.block) router.replace('/payment')
+
   return <Fragment>{children}</Fragment>
 }
 

@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 import { UserDataType } from '@/types/user'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'next-i18next'
 import { AppDispatch, RootState } from '@/store'
 import { getUserData } from '@/store/user/login'
 import { UseToastOptions, useToast } from '@chakra-ui/react'
-import { useTranslation } from 'next-i18next'
 
 const backend_url = process.env.BACKEND_URL
 

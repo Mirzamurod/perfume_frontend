@@ -144,6 +144,9 @@ const ru = {
   cancelled_orders: 'Отмененные заказы',
   status: 'Статус',
   product_count_incorrect: 'Количество продуктов неверное',
+  want_to_change: 'Вы уверены, что хотите изменить?',
+  yes: 'Да',
+  no: 'Нет',
 }
 
 export default ru

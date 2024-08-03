@@ -17,10 +17,18 @@ export type TSupplier = {
   orders: number
   finished_orders: number
   role: TUserRole
+  block: boolean
 }
 
 export type TSupplierForm = {
   name?: string
   phone: string
   password?: string
+}
+
+export type TSupplierEditForm = {
+  name?: string
+  phone?: string
+  password?: string
+  block?: boolean
 }

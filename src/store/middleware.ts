@@ -6,6 +6,8 @@ import { deleteUser } from './user/login'
 
 const { toast } = createStandaloneToast()
 
+const baseURL = process.env.BACKEND_URL
+
 const middleware =
   ({ dispatch }: { dispatch: any }) =>
   (next: any) =>
@@ -26,14 +28,7 @@ const middleware =
     dispatch({ type: onStart })
 
     // @ts-ignore
-    axios({
-      baseURL: 'http://localhost:5000/api/',
-      method,
-      data,
-      url,
-      params,
-      headers,
-    })
+    axios({ baseURL, method, data, url, params, headers })
       .then(res => {
         if (res.status === 200 || res.status === 201) {
           dispatch({ type: onSuccess, payload: res.data })

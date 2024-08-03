@@ -144,6 +144,9 @@ const uz = {
   cancelled_orders: 'Bekor qilingan buyurtmalar',
   status: 'Holat',
   product_count_incorrect: "Mahsulotlar soni noto'g'ri",
+  want_to_change: "Haqiqatan ham o'gartirmoqchimisiz?",
+  yes: 'Ha',
+  no: "Yo'q",
 }
 
 export default uz

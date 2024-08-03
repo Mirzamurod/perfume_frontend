@@ -1,10 +1,17 @@
+import { FC } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { ListIcon, Link as LinkChakra, Heading, Box, Badge, Text } from '@chakra-ui/react'
 import { TNavbar } from '@/types/navbar'
 
-const NavItem = ({ item, collapse }: { item: TNavbar; collapse: boolean }) => {
+interface IProps {
+  setIsOpen: (value: boolean) => void
+  item: TNavbar
+  collapse: boolean
+}
+
+const NavItem: FC<IProps> = ({ item, collapse, setIsOpen }) => {
   const { label } = item
   const router = useRouter()
   const { t } = useTranslation()
@@ -30,9 +37,14 @@ const NavItem = ({ item, collapse }: { item: TNavbar; collapse: boolean }) => {
           fontWeight={isActive ? 'bold' : 'medium'}
           bgColor={isActive ? '#8585853d' : ''}
           justifyContent={!collapse ? 'center' : ''}
+          onClick={() => setIsOpen(false)}
         >
           <ListIcon as={icon} fontSize={22} m='0' />
-          {collapse && <Text ml={3} noOfLines={1}>{t(label)}</Text>}
+          {collapse && (
+            <Text ml={3} noOfLines={1}>
+              {t(label)}
+            </Text>
+          )}
         </LinkChakra>
         {collapse ? (
           notifications ? (

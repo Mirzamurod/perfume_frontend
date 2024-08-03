@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import i18next from 'i18next'
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   MenuList,
   Text,
   useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { TbPerfume } from 'react-icons/tb'
 import { IBlankLayoutWithSidebar } from '@/types/blankLayout'
@@ -25,12 +26,16 @@ import { MdMenu, MdOutlineDarkMode, MdSunny } from 'react-icons/md'
 import { useAppSelector } from '@/store'
 import { useLanguage } from '@/context/LanguageContext'
 import { Language } from '@/types/language'
+import { CloseIcon } from '@chakra-ui/icons'
 
 const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
   const { children } = props
   const { colorMode, toggleColorMode } = useColorMode()
+  const bgcolor = useColorModeValue('#fff', '#1a202c')
   const { language, setLanguage } = useLanguage()
   const [collapse, setCollapse] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   const { user } = useAppSelector(state => state.login)
 
@@ -39,12 +44,33 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
     setLanguage({ lang, name })
   }
 
+  const changeMenu = () => {
+    if (windowWidth > 991) setCollapse(!collapse)
+    else setIsOpen(!isOpen)
+  }
+
+  useEffect(() => {
+    const getWindowWidth = () => {
+      return window.innerWidth
+    }
+
+    const updateWindowWidth = () => {
+      setWindowWidth(getWindowWidth())
+      if (getWindowWidth() > 991) setIsOpen(false)
+    }
+
+    window.addEventListener('resize', updateWindowWidth)
+    updateWindowWidth()
+
+    return () => window.removeEventListener('resize', updateWindowWidth)
+  }, [])
+
   return (
     <HStack w='full' h='100vh' padding={5}>
       {/* Sidebar */}
       <Flex
         w='full'
-        h='full'
+        h={{ base: 'auto', lg: 'full' }}
         as='aside'
         padding={6}
         border='1px'
@@ -55,7 +81,12 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         maxW={collapse ? 350 : 100}
         transition='ease-in-out .2s'
         justifyContent='space-between'
-        display={{ base: 'none', lg: 'flex' }}
+        bgColor={bgcolor}
+        display={{ base: isOpen ? 'flex' : 'none', lg: 'flex' }}
+        position={isOpen ? 'absolute' : 'inherit'}
+        bottom={5}
+        top={5}
+        zIndex={4}
       >
         <Box w='full'>
           {/* Logo */}
@@ -74,12 +105,20 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
                 </Text>
               )}
             </Box>
+            <Box display={{ lg: 'none' }}>
+              <IconButton
+                aria-label='exit'
+                icon={<CloseIcon />}
+                variant='ghost'
+                onClick={() => setIsOpen(!isOpen)}
+              />
+            </Box>
           </Flex>
           {/* Navigation */}
           <List w='full' my={3}>
             {navbar[user?.role!]?.map(item => (
               <ListItem key={item.label + item.type}>
-                <NavItem item={item} collapse={collapse} />
+                <NavItem item={item} collapse={collapse} setIsOpen={setIsOpen} />
               </ListItem>
             ))}
           </List>
@@ -97,11 +136,7 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         overflow='auto'
       >
         <Flex mx={4} mt={4} justifyContent='space-between'>
-          <IconButton
-            aria-label='Menu Collapse'
-            icon={<MdMenu />}
-            onClick={() => setCollapse(!collapse)}
-          />
+          <IconButton aria-label='Menu Collapse' icon={<MdMenu />} onClick={changeMenu} />
           <Box>
             <IconButton
               mr={3}

@@ -6,7 +6,6 @@ import Table from '@/components/Table'
 import { TSortModel } from '@/types/table'
 import { useAppSelector } from '@/store'
 import { getOrders } from '@/store/order'
-import { getSuppliers } from '@/store/supplier'
 import TableHeader from '@/view/orders/status/TableHeader'
 import columns from '@/view/orders/status/columns'
 
@@ -32,10 +31,6 @@ const AcceptedOrders = () => {
       })
     )
   }, [router.query.page, router.query.limit, ordering, inputValue])
-
-  // useEffect(() => {
-  //   dispatch(getSuppliers())
-  // }, [])
 
   useEffect(() => {
     if (success)
