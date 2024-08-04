@@ -149,6 +149,11 @@ const eng = {
   want_to_change: 'Are you sure you want to change?',
   yes: 'Yes',
   no: 'No',
+  clients: 'Clients',
+  add_client: 'Add client',
+  edit_client: 'Edit client',
+  delete_client: 'Delete client',
+  go_to_clients: 'Go to clients',
 }
 
 export type TranslationKeys = keyof typeof eng

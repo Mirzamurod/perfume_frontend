@@ -5,8 +5,10 @@ import { TUsersState } from '@/types/users'
 const initialState: TUsersState = {
   isLoading: false,
   users: [],
+  user: null,
   success: false,
   pageCount: 0,
+  errors: null,
 }
 
 const users = createSlice({

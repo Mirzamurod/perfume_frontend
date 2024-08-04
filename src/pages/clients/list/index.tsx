@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { Box } from '@chakra-ui/react'
-import TableHeader from '@/view/users/TableHeader'
+import TableHeader from '@/view/clients/TableHeader'
 import Table from '@/components/Table'
 import { TSortModel } from '@/types/table'
 import { useAppSelector } from '@/store'
-import columns from '@/view/users/columns'
-import { getUsers } from '@/store/users'
+import columns from '@/view/clients/columns'
+import { getClients } from '@/store/client'
 
-const Users = () => {
+const Clients = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [ordering, setOrdering] = useState<TSortModel | null>(null)
@@ -17,11 +17,11 @@ const Users = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const debounceTimeout = useRef<NodeJS.Timeout | number | null>(null)
 
-  const { users, isLoading, pageCount, success } = useAppSelector(state => state.users)
+  const { clients, isLoading, pageCount, success } = useAppSelector(state => state.client)
 
   useEffect(() => {
     dispatch(
-      getUsers({
+      getClients({
         page: router.query.page || 1,
         limit: router.query.limit || 10,
         sortName: ordering?.field,
@@ -34,7 +34,7 @@ const Users = () => {
   useEffect(() => {
     if (success)
       dispatch(
-        getUsers({
+        getClients({
           page: router.query.page || 1,
           limit: router.query.limit || 10,
           sortName: ordering?.field,
@@ -65,7 +65,7 @@ const Users = () => {
     <Box>
       <TableHeader search={search} setSearch={setSearch} />
       <Table
-        data={users}
+        data={clients}
         columns={columns}
         loading={isLoading}
         pageCount={pageCount}
@@ -83,4 +83,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default Clients

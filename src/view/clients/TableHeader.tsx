@@ -15,7 +15,7 @@ const TableHeader: FC<IProps> = props => {
 
   return (
     <Box>
-      <Heading mb={2}>{t('users')}</Heading>
+      <Heading mb={2}>{t('clients')}</Heading>
       <Stack mb={4} justifyContent='space-between' flexDirection={{ base: 'column', md: 'row' }}>
         <Input
           width='auto'
@@ -28,9 +28,9 @@ const TableHeader: FC<IProps> = props => {
           variant='outline'
           colorScheme='teal'
           leftIcon={<AddIcon />}
-          href='/users/add'
+          href='/clients/add'
         >
-          {t('add_user')}
+          {t('add_client')}
         </Button>
       </Stack>
     </Box>

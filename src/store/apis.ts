@@ -27,3 +27,7 @@ export const getorder = 'order/'
 // supplier
 export const getsuppliers = 'supplier'
 export const getsupplier = 'supplier/'
+
+// client
+export const getclients = 'client'
+export const getclient = 'client/'

@@ -23,28 +23,29 @@ import {
 import { TColumns } from '@/types/table'
 import { EditIcon } from '@chakra-ui/icons'
 import { useAppSelector } from '@/store'
-import { TUser } from '@/types/users'
+import { TClient } from '@/types/client'
+import DeletePopover from '@/components/DeletePopover'
+import { deleteClient, editClient } from '@/store/client'
 
 const columns: TColumns[] = [
   {
     field: 'name',
     headerName: 'name',
-    renderCell: ({ row }: { row: TUser }) => <Text>{row.name || '-'}</Text>,
+    renderCell: ({ row }: { row: TClient }) => <Text>{row.name || '-'}</Text>,
   },
   { field: 'phone', headerName: 'phone' },
-  { field: 'role', headerName: 'role' },
   {
     field: 'block',
     headerName: 'block',
     isNumeric: true,
-    renderCell: ({ row }: { row: TUser }) => {
+    renderCell: ({ row }: { row: TClient }) => {
       const { t } = useTranslation()
       const dispatch = useDispatch()
       const { onOpen, onClose, isOpen } = useDisclosure()
 
       const { success } = useAppSelector(state => state.supplier)
 
-      const confirm = () => console.log(row._id)
+      const confirm = () => dispatch(editClient(row._id, { block: !row.block }))
 
       useEffect(() => {
         if (success) onClose()
@@ -81,26 +82,26 @@ const columns: TColumns[] = [
     field: 'action',
     headerName: 'action',
     isNumeric: true,
-    renderCell: ({ row }: { row: TUser }) => {
+    renderCell: ({ row }: { row: TClient }) => {
       const { t } = useTranslation()
 
       return (
         <>
-          <Tooltip label={t('edit_supplier')}>
+          <Tooltip label={t('edit_client')}>
             <IconButton
               mr={3}
               icon={<EditIcon />}
-              aria-label={t('edit_supplier')}
+              aria-label={t('edit_client')}
               as={Link}
-              href={`/suppliers/${row._id}`}
+              href={`/clients/${row._id}`}
             />
           </Tooltip>
-          {/* <DeletePopover
+          <DeletePopover
             data={row}
-            selector='supplier'
-            deleteAction={deleteSupplier}
-            label='delete_supplier'
-          /> */}
+            selector='client'
+            deleteAction={deleteClient}
+            label='delete_client'
+          />
         </>
       )
     },

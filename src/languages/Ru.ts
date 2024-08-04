@@ -147,6 +147,11 @@ const ru = {
   want_to_change: 'Вы уверены, что хотите изменить?',
   yes: 'Да',
   no: 'Нет',
+  clients: 'Клиенты',
+  add_client: 'Добавить клиента',
+  edit_client: 'Редактировать клиент',
+  delete_client: 'Удалить клиента',
+  go_to_clients: 'Перейти к клиентам',
 }
 
 export default ru

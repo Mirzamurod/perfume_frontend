@@ -16,6 +16,28 @@ import {
 import { TNavbar } from '@/types/navbar'
 
 const navbar: { [x: string]: TNavbar[] } = {
+  admin: [
+    // dashboard
+    { type: 'heading', label: 'dashboard' },
+    { type: 'link', label: 'dashboard', pathname: '/', link: '/', icon: MdDataThresholding },
+    // users
+    { type: 'heading', label: 'clients' },
+    {
+      type: 'link',
+      label: 'clients',
+      pathname: '/clients/list',
+      link: '/clients/list',
+      query: { page: 1, limit: 10 },
+      icon: MdOutlineGroup,
+    },
+    {
+      type: 'link',
+      label: 'add_client',
+      pathname: '/clients/add',
+      link: '/clients/add',
+      icon: MdOutlineGroupAdd,
+    },
+  ],
   client: [
     // dashboard
     { type: 'heading', label: 'dashboard' },
@@ -127,28 +149,6 @@ const navbar: { [x: string]: TNavbar[] } = {
       pathname: '/suppliers/add',
       link: '/suppliers/add',
       icon: MdControlPoint,
-    },
-  ],
-  admin: [
-    // dashboard
-    { type: 'heading', label: 'dashboard' },
-    { type: 'link', label: 'dashboard', pathname: '/', link: '/', icon: MdDataThresholding },
-    // users
-    { type: 'heading', label: 'users' },
-    {
-      type: 'link',
-      label: 'users',
-      pathname: '/users/list',
-      link: '/users/list',
-      query: { page: 1, limit: 10 },
-      icon: MdOutlineGroup,
-    },
-    {
-      type: 'link',
-      label: 'add_user',
-      pathname: '/users/add',
-      link: '/users/add',
-      icon: MdOutlineGroupAdd,
     },
   ],
   supplier: [

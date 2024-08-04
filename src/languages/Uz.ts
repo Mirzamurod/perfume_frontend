@@ -147,6 +147,11 @@ const uz = {
   want_to_change: "Haqiqatan ham o'gartirmoqchimisiz?",
   yes: 'Ha',
   no: "Yo'q",
+  clients: 'Mijozlar',
+  add_client: "Mijoz qo'shish",
+  edit_client: 'Mijozni tahrirlash',
+  delete_client: "Mijozni o'chirish",
+  go_to_clients: "Mijozlarga o'tish",
 }
 
 export default uz
