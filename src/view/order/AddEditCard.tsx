@@ -159,6 +159,9 @@ const AddEditCard: FC<IProps> = props => {
           </FormControl>
         </GridItem>
         <GridItem>
+          <Input name='address' />
+        </GridItem>
+        <GridItem>
           <Input name='delivery_date' type='date' />
         </GridItem>
         <GridItem colSpan={{ md: 2, base: 1 }}>

@@ -31,6 +31,7 @@ const AddEditOrder = () => {
     delivery_date: yup.string(),
     location: yup.array(),
     supplierId: yup.string(),
+    address: yup.string(),
     status: yup
       .mixed<TOrderStatus>()
       .oneOf(['added', 'accepted', 'cancelled', 'on_the_way', 'sold'])
@@ -61,35 +62,37 @@ const AddEditOrder = () => {
   const { purchased_products } = useAppSelector(state => state.purchased_product)
 
   const onSubmit = (values: TOrderForm) => {
-    const mergedItems: { id: string; qty: number }[] = Object.values(
-      values.perfumes.reduce((acc, { qty, id }) => {
-        // @ts-ignore
-        acc[id] = acc[id] || { qty: 0, id }
-        // @ts-ignore
-        acc[id].qty += qty
-        return acc
-      }, {})
-    )
+    if (values.perfumes.length) {
+      const mergedItems: { id: string; qty: number }[] = Object.values(
+        values.perfumes.reduce((acc, { qty, id }) => {
+          // @ts-ignore
+          acc[id] = acc[id] || { qty: 0, id }
+          // @ts-ignore
+          acc[id].qty += qty
+          return acc
+        }, {})
+      )
 
-    const items = purchased_products.map(i => {
-      const match = order?.perfumes?.find(it => i._id === it.perfume._id)
-      if (match?.qty) {
-        return { ...i, count: i.count + match.qty }
-      } else {
-        return i
+      const items = purchased_products.map(i => {
+        const match = order?.perfumes?.find(it => i._id === it.perfume._id)
+        if (match?.qty) {
+          return { ...i, count: i.count + match.qty }
+        } else {
+          return i
+        }
+      })
+
+      const result = mergedItems.some(item1Obj => {
+        const match = items.find(item2Obj => item2Obj._id === item1Obj.id)
+        return match ? item1Obj.qty > match.count : false
+      })
+
+      if (result) toast({ status: 'warning', title: t('product_count_incorrect') })
+      else {
+        if (router.query.addEdit === 'add') dispatch(addOrder(values))
+        else dispatch(editOrder(router.query.addEdit as string, values))
       }
-    })
-
-    const result = mergedItems.some(item1Obj => {
-      const match = items.find(item2Obj => item2Obj._id === item1Obj.id)
-      return match ? item1Obj.qty > match.count : false
-    })
-
-    if (result) toast({ status: 'warning', title: t('product_count_incorrect') })
-    else {
-      if (router.query.addEdit === 'add') dispatch(addOrder(values))
-      else dispatch(editOrder(router.query.addEdit as string, values))
-    }
+    } else toast({ status: 'warning', title: t('must_have_perfume') })
   }
 
   useEffect(() => {

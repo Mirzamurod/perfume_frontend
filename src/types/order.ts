@@ -29,6 +29,7 @@ export type TOrderForm = {
   location?: number[]
   delivery_date?: string
   supplierId?: string
+  address?: string
   status: TOrderStatus
   perfumes: { qty: number; id: string }[]
 }
