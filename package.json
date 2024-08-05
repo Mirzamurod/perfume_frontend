@@ -22,6 +22,7 @@
     "axios": "^1.7.2",
     "flag-icons": "^7.2.3",
     "framer-motion": "^11.2.12",
+    "i18next": "^23.12.2",
     "js-base64": "^3.7.7",
     "next": "^14.2.4",
     "next-i18next": "^15.3.0",
