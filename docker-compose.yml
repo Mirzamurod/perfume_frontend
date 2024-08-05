@@ -9,7 +9,7 @@ services:
     restart: always
     environment:
       PORT: 3001
-      BACKEND_URL: http://206.189.109.20:9090/
+      BACKEND_URL: http://206.189.109.20:9090/api
     ports:
       - "8080:3001"
     volumes:
