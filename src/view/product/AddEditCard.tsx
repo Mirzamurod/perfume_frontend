@@ -59,6 +59,7 @@ const AddEditCard = () => {
               <option value='spring'>{t('spring')}</option>
               <option value='summer'>{t('summer')}</option>
               <option value='autumn'>{t('autumn')}</option>
+              <option value='all_seasonal'>{t('all_seasonal')}</option>
             </Select>
             {errors.season?.message ? (
               <FormErrorMessage>{errors.season?.message}</FormErrorMessage>
@@ -69,8 +70,9 @@ const AddEditCard = () => {
           <FormControl isInvalid={!!errors.gender?.message} isRequired>
             <FormLabel>{t('gender')}</FormLabel>
             <Select {...register('gender')}>
-              <option value='boy'>{t('boy')}</option>
-              <option value='girl'>{t('girl')}</option>
+              <option value='male'>{t('male')}</option>
+              <option value='female'>{t('female')}</option>
+              <option value='unisex'>{t('unisex')}</option>
             </Select>
             {errors.gender?.message ? (
               <FormErrorMessage>{errors.gender?.message}</FormErrorMessage>

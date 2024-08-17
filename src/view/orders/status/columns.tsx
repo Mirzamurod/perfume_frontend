@@ -2,27 +2,11 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip, Text, HStack, Select, Button } from '@chakra-ui/react'
 import { TColumns } from '@/types/table'
-import { EditIcon, ViewIcon } from '@chakra-ui/icons'
+import { ViewIcon } from '@chakra-ui/icons'
 import { TOrder, TOrderStatus } from '@/types/order'
-import StatusEdit from '@/components/StatusEdit'
-import DeletePopover from '@/components/DeletePopover'
-import { deleteOrder, editOrder } from '@/store/order'
+import { editOrder } from '@/store/order'
 import { useAppSelector } from '@/store'
 import { useDispatch } from 'react-redux'
-
-const status_colors: {
-  accepted: string
-  on_the_way: string
-  sold: string
-  cancelled: string
-  added: string
-} = {
-  accepted: 'blue.500',
-  on_the_way: 'yellow.500',
-  sold: 'green.500',
-  cancelled: 'red.500',
-  added: '',
-}
 
 const columns: TColumns[] = [
   { field: 'name', headerName: 'name' },
@@ -61,14 +45,16 @@ const columns: TColumns[] = [
       // @ts-ignore
       const onChange = (status: TOrderStatus) => dispatch(editOrder(row._id, { status }))
 
-      // @ts-ignore
       return row.status === 'added' ? (
         <Button variant='outline' colorScheme='cyan' onClick={() => onChange('accepted')}>
-          Saw
+          {t('saw')}
         </Button>
       ) : (
-        // @ts-ignore
-        <Select value={row.status} onChange={({ target }) => onChange(target.value as TOrderStatus)}>
+        <Select
+          value={row.status}
+          minWidth='max-content'
+          onChange={({ target }) => onChange(target.value as TOrderStatus)}
+        >
           <option value='accepted' disabled={user?.role === 'client'}>
             {t('accepted')}
           </option>

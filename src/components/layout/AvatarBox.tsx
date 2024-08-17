@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'next-i18next'
 import { UserDataType } from '@/types/user'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 import {
@@ -16,6 +17,7 @@ import { deleteUser } from '@/store/user/login'
 
 export const AvatarBox = ({ collapse, user }: { collapse: boolean; user: UserDataType }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   return (
     <Flex
@@ -48,7 +50,7 @@ export const AvatarBox = ({ collapse, user }: { collapse: boolean; user: UserDat
           fontSize={20}
         />
         <MenuList>
-          <MenuItem onClick={() => dispatch(deleteUser())}>Logout</MenuItem>
+          <MenuItem onClick={() => dispatch(deleteUser())}>{t('logout')}</MenuItem>
         </MenuList>
       </Menu>
     </Flex>

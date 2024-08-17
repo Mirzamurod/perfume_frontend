@@ -50,19 +50,19 @@ const StatusEdit: FC<IProps> = props => {
 
   return (
     <Box>
-      <Select value={supplier} onChange={onChange} width='auto'>
+      <Select value={supplier} onChange={onChange} minWidth='max-content'>
         <option value=''>{t('choose_supplier')}</option>
         {suppliers.map(supplier => (
-          <option value={supplier._id} key={supplier._id}>{supplier?.name || supplier?.phone}</option>
+          <option value={supplier._id} key={supplier._id}>
+            {supplier?.name || supplier?.phone}
+          </option>
         ))}
       </Select>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            {order.supplier
-              ? 'Are you sure you want to change supplier?'
-              : 'Are you sure you want to give this order to this supplier?'}
+            {order.supplier ? t('are_you_sure_change_supplier') : t('are_you_sure_give_order')}
           </ModalHeader>
           <ModalCloseButton />
           {/* <ModalBody>
@@ -70,10 +70,10 @@ const StatusEdit: FC<IProps> = props => {
           </ModalBody> */}
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={cancel}>
-              Close
+              {t('close')}
             </Button>
             <Button variant='outline' colorScheme='teal' onClick={confirm}>
-              Yes
+              {t('yes')}
             </Button>
           </ModalFooter>
         </ModalContent>

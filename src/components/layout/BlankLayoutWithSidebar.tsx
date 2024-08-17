@@ -75,7 +75,7 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         padding={6}
         border='1px'
         overflow='auto'
-        borderRadius='2xl'
+        borderRadius={{ base: '6px', lg: '2xl' }}
         alignItems='start'
         flexDirection='column'
         maxW={collapse ? 350 : 100}
@@ -130,12 +130,12 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
         as='main'
         w='full'
         h='full'
-        border='1px'
+        border={{ base: '0px', lg: '1px' }}
         position='relative'
-        borderRadius='2xl'
+        borderRadius={{ lg: '2xl' }}
         overflow='auto'
       >
-        <Flex mx={4} mt={4} justifyContent='space-between'>
+        <Flex mx={{ base: 0, lg: 4 }} mt={{ base: 0, lg: 4 }} justifyContent='space-between'>
           <IconButton aria-label='Menu Collapse' icon={<MdMenu />} onClick={changeMenu} />
           <Box>
             <IconButton
@@ -160,7 +160,9 @@ const BlankLayoutWithSidebar: FC<IBlankLayoutWithSidebar> = props => {
             </Menu>
           </Box>
         </Flex>
-        <Box p={4}>{children}</Box>
+        <Box py={4} px={{ base: 0, lg: 4 }}>
+          {children}
+        </Box>
       </Box>
     </HStack>
   )

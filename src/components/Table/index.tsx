@@ -94,7 +94,7 @@ const Table: FC<TTable> = props => {
                     <Td {...column} key={index}>
                       {column.renderCell
                         ? createElement(column.renderCell, { row: item })
-                        : item[column.field]}
+                        : t(item[column.field])}
                     </Td>
                   ))}
                 </Tr>

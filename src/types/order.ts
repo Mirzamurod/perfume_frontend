@@ -18,7 +18,7 @@ export type TOrder = {
   location?: number[]
   delivery_date?: Date
   supplier?: UserDataType
-  status: TOrderState
+  status: TOrderStatus
   perfumes: { perfume: TProduct; qty: number }[]
 }
 

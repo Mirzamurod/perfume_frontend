@@ -12,8 +12,8 @@ export type TProductState = {
 }
 
 export type TypeTypes = 'perfume' | 'muskambar'
-export type SeasonTypes = 'winter' | 'spring' | 'summer' | 'autumn'
-export type GenderTypes = 'boy' | 'girl'
+export type SeasonTypes = 'winter' | 'spring' | 'summer' | 'autumn' | 'all_seasonal'
+export type GenderTypes = 'male' | 'female' | 'unisex'
 
 export type TProduct = {
   _id: string

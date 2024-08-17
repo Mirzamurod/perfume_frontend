@@ -24,11 +24,11 @@ const AddEditProduct = () => {
       .required(t('type_required')),
     season: yup
       .mixed<SeasonTypes>()
-      .oneOf(['winter', 'spring', 'summer', 'autumn'], 'no_season')
+      .oneOf(['winter', 'spring', 'summer', 'autumn', 'all_seasonal'], 'no_season')
       .required(t('season_required')),
     gender: yup
       .mixed<GenderTypes>()
-      .oneOf(['boy', 'girl'], 'no_gender')
+      .oneOf(['male', 'female', 'unisex'], 'no_gender')
       .required(t('gender_required')),
     name: yup.string().required(t('name_required')),
     color: yup.string().required(t('color_required')),
@@ -41,7 +41,7 @@ const AddEditProduct = () => {
     defaultValues: {
       type: 'perfume',
       season: 'winter',
-      gender: 'boy',
+      gender: 'male',
       name: '',
       color: '',
       smell: '',
@@ -50,11 +50,7 @@ const AddEditProduct = () => {
   })
   const { handleSubmit, setValue, setError, reset } = methods
 
-  const {
-    success,
-    errors: productErrors,
-    product,
-  } = useAppSelector(state => state.product)
+  const { success, errors: productErrors, product } = useAppSelector(state => state.product)
 
   const onSubmit = (values: TProductForm) => {
     if (router.query.addEdit === 'add') dispatch(addProduct(values))
