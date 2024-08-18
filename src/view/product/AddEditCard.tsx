@@ -22,7 +22,7 @@ const AddEditCard = () => {
 
   const inputs: TInputType[] = [
     { name: 'name', isRequired: true },
-    { name: 'color', isRequired: true },
+    { name: 'color' },
     { name: 'smell', isRequired: true },
     { name: 'persistence_of_the_smell', type: 'number', isRequired: true },
   ]
@@ -30,6 +30,7 @@ const AddEditCard = () => {
   return (
     <Box>
       <Grid
+        gap={4}
         templateColumns={{
           xl: 'repeat(3, 1fr)',
           lg: 'repeat(2, 1fr)',
@@ -37,7 +38,6 @@ const AddEditCard = () => {
           sm: 'repeat(2, 1fr)',
           base: 'repeat(1, 1fr)',
         }}
-        gap={4}
       >
         <GridItem>
           <FormControl isInvalid={!!errors.type?.message} isRequired>

@@ -90,6 +90,12 @@ const App = (props: ExtendedAppProps) => {
         <link rel='icon' href='/images/logo/logo.png' />
         <meta name='keywords' content='Perfume, perfume, ...' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
+        <meta name='application-name' content='Perfume' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+        <meta name='apple-mobile-web-app-title' content='Perfume' />
+        <meta name='description' content='Best Perfume App in the world' />
+        <link rel='manifest' href='./manifest.json' />
       </Head>
 
       <LanguageProvider>

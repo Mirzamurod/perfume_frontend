@@ -17,6 +17,7 @@ import { getOrder } from '@/store/order'
 import { useAppSelector } from '@/store'
 import Table from '@/components/Table'
 import columns from '@/view/order/columns'
+import Link from 'next/link'
 
 const ViewOrder = () => {
   const router = useRouter()
@@ -49,7 +50,10 @@ const ViewOrder = () => {
             </Flex>
             <Flex mt={1}>
               <Text fontSize='xl'>{t('phone')}: &nbsp;</Text>
-              <Text fontSize='xl'>{order?.phone}</Text>
+              <Text fontSize='xl' as={Link} href={`tel:${order?.phone}`}>
+                {order?.phone}
+              </Text>
+              {/* <Link href={`tel:${order?.phone}`}>{order?.phone}</Link> */}
             </Flex>
             <Flex mt={1}>
               <Text fontSize='xl'>{t('delivery_date')}: &nbsp;</Text>

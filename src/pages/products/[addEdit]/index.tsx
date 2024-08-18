@@ -31,9 +31,9 @@ const AddEditProduct = () => {
       .oneOf(['male', 'female', 'unisex'], 'no_gender')
       .required(t('gender_required')),
     name: yup.string().required(t('name_required')),
-    color: yup.string().required(t('color_required')),
     smell: yup.string().required(t('smell_required')),
     persistence_of_the_smell: yup.number().required(t('persistence_required')).min(1, 'min_1'),
+    color: yup.string(),
   })
   const methods = useForm<TProductForm>({
     mode: 'onTouched',

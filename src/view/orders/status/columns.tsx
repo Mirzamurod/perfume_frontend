@@ -10,7 +10,11 @@ import { useDispatch } from 'react-redux'
 
 const columns: TColumns[] = [
   { field: 'name', headerName: 'name' },
-  { field: 'phone', headerName: 'phone' },
+  {
+    field: 'phone',
+    headerName: 'phone',
+    renderCell: ({ row }: { row: TOrder }) => <Link href={`tel:${row.phone}`}>{row.phone}</Link>,
+  },
   {
     field: 'products',
     headerName: 'products',

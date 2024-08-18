@@ -25,7 +25,7 @@ export type TProductForm = {
   season: SeasonTypes
   gender: GenderTypes
   name: string
-  color: string
+  color?: string
   smell: string
   persistence_of_the_smell: number
 }
