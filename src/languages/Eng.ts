@@ -178,6 +178,12 @@ const eng = {
   are_you_sure_change_supplier: 'Are you sure you want to change supplier?',
   are_you_sure_give_order: 'Are you sure you want to give this order to this supplier?',
   saw: 'Saw',
+  botId: 'Bot ID',
+  groupId: 'Group ID',
+  settings: 'Settings',
+  edit_setting: 'Edit setting',
+  add_setting: 'Add setting',
+  username: 'Username (telegram)',
 }
 
 export type TranslationKeys = keyof typeof eng

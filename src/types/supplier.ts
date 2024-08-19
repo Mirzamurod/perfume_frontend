@@ -22,6 +22,7 @@ export type TSupplier = {
 
 export type TSupplierForm = {
   name?: string
+  username?: string
   phone: string
   password?: string
 }

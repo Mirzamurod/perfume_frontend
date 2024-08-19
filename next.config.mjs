@@ -4,6 +4,14 @@ import withPWA from 'next-pwa'
 const nextConfig = {
   reactStrictMode: false,
   env: { BACKEND_URL: 'http://localhost:5000/api/' },
+  webpack: (config, { isServer, dev }) => {
+    if (dev) {
+      config.watchOptions = {
+        ignored: /sw\.js$/,
+      }
+    }
+    return config
+  },
   // env: { BACKEND_URL: 'http://206.189.109.20:9090/api/' },
   // webpack: (config, { isServer }) => {
   //   if (isServer) {

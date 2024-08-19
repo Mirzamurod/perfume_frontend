@@ -7,7 +7,11 @@ import PasswordInput from '@/components/PasswordInput'
 const AddEditCard = () => {
   const router = useRouter()
 
-  const inputs: TInputType[] = [{ name: 'name' }, { name: 'phone', isRequired: true }]
+  const inputs: TInputType[] = [
+    { name: 'name' },
+    { name: 'username', placeholder: 'qwerty' },
+    { name: 'phone', isRequired: true },
+  ]
 
   return (
     <Box>

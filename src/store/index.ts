@@ -15,6 +15,7 @@ import order from '@/store/order'
 import purchased_product from '@/store/purchased_product'
 import supplier from '@/store/supplier'
 import client from '@/store/client'
+import setting from '@/store/setting'
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     purchased_product,
     supplier,
     client,
+    setting,
   },
   // @ts-ignore
   middleware: () => [middleware],

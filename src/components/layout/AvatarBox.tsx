@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { UserDataType } from '@/types/user'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
@@ -50,6 +51,9 @@ export const AvatarBox = ({ collapse, user }: { collapse: boolean; user: UserDat
           fontSize={20}
         />
         <MenuList>
+          <MenuItem as={Link} href='/settings'>
+            {t('settings')}
+          </MenuItem>
           <MenuItem onClick={() => dispatch(deleteUser())}>{t('logout')}</MenuItem>
         </MenuList>
       </Menu>

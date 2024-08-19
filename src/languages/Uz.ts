@@ -176,6 +176,12 @@ const uz = {
   are_you_sure_change_supplier: 'Haqiqatan ham yetkazib beruvchini almashtirmoqchimisiz?',
   are_you_sure_give_order: 'Bu buyurtmani ushbu yetkazib beruvchiga bermoqchimisiz?',
   saw: "Ko'rdim",
+  botId: 'Bot ID',
+  groupId: 'Group ID',
+  settings: 'Sozlamalar',
+  edit_setting: 'Sozlamani tahrirlash',
+  add_setting: "Sozlamani qo'shish",
+  username: 'Username (telegram)',
 }
 
 export default uz

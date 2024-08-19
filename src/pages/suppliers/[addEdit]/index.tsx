@@ -19,13 +19,14 @@ const AddEditSupplier = () => {
   const dispatch = useDispatch()
   const formSchema = yup.object().shape({
     name: yup.string(),
+    username: yup.string(),
     phone: yup.string().required(t('phone_required')),
     password: yup.string(),
   })
   const methods = useForm<TSupplierForm>({
     mode: 'onTouched',
     resolver: yupResolver(formSchema),
-    defaultValues: { name: '', phone: '', password: '' },
+    defaultValues: { name: '', username: '', phone: '', password: '' },
   })
   const { handleSubmit, setValue, setError, reset } = methods
 

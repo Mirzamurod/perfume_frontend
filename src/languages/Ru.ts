@@ -176,6 +176,12 @@ const ru = {
   are_you_sure_change_supplier: 'Вы уверены, что хотите сменить поставщика?',
   are_you_sure_give_order: 'Вы уверены, что хотите передать этот заказ этому поставщику?',
   saw: 'Пила',
+  botId: 'ID бота',
+  groupId: 'ID группы',
+  settings: 'Настройки',
+  edit_setting: 'Изменить настройку',
+  add_setting: 'Добавить настройку',
+  username: 'Username (telegram)',
 }
 
 export default ru

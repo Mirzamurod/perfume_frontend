@@ -31,3 +31,6 @@ export const getsupplier = 'supplier/'
 // client
 export const getclients = 'client'
 export const getclient = 'client/'
+
+// setting
+export const getsetting = 'setting'

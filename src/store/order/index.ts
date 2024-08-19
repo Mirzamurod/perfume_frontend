@@ -46,16 +46,16 @@ const order = createSlice({
       state.errors = payload?.messages
       state.success = payload?.success
     },
-    // get order
-    onStartAddOrder: state => {
+    // get add edit order
+    onStartAddEditOrder: state => {
       state.isLoading = true
       state.success = false
     },
-    onSuccessAddOrder: state => {
+    onSuccessAddEditOrder: (state, { payload }) => {
       state.isLoading = false
       state.success = true
     },
-    onFailAddOrder: (state, { payload }) => {
+    onFailAddEditOrder: (state, { payload }) => {
       state.isLoading = false
       state.errors = payload?.messages
       state.success = payload?.success
@@ -87,9 +87,9 @@ export const addOrder = (data: TOrderForm) =>
     url: getorders,
     method: 'post',
     data,
-    onStart: order.actions.onStartAddOrder.type,
-    onSuccess: order.actions.onSuccessAddOrder.type,
-    onFail: order.actions.onFailAddOrder.type,
+    onStart: order.actions.onStartAddEditOrder.type,
+    onSuccess: order.actions.onSuccessAddEditOrder.type,
+    onFail: order.actions.onFailAddEditOrder.type,
   })
 
 export const editOrder = (id: string, data: TOrderForm) =>
@@ -97,18 +97,18 @@ export const editOrder = (id: string, data: TOrderForm) =>
     url: getorder + id,
     method: 'patch',
     data,
-    onStart: order.actions.onStartAddOrder.type,
-    onSuccess: order.actions.onSuccessAddOrder.type,
-    onFail: order.actions.onFailAddOrder.type,
+    onStart: order.actions.onStartAddEditOrder.type,
+    onSuccess: order.actions.onSuccessAddEditOrder.type,
+    onFail: order.actions.onFailAddEditOrder.type,
   })
 
 export const deleteOrder = (id: string) =>
   perfume({
     url: getorder + id,
     method: 'delete',
-    onStart: order.actions.onStartAddOrder.type,
-    onSuccess: order.actions.onSuccessAddOrder.type,
-    onFail: order.actions.onFailAddOrder.type,
+    onStart: order.actions.onStartAddEditOrder.type,
+    onSuccess: order.actions.onSuccessAddEditOrder.type,
+    onFail: order.actions.onFailAddEditOrder.type,
   })
 
 export default order.reducer
