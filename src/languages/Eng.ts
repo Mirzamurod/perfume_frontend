@@ -184,6 +184,10 @@ const eng = {
   edit_setting: 'Edit setting',
   add_setting: 'Add setting',
   username: 'Username (telegram)',
+  copy_link: 'Copy link',
+  submit: 'Submit',
+  added_settings: 'Setting successfully added',
+  edited_settings: 'Setting successfully edited',
 }
 
 export type TranslationKeys = keyof typeof eng

@@ -23,7 +23,6 @@ import {
   FormErrorMessage,
   Select,
   Text,
-  FormHelperText,
 } from '@chakra-ui/react'
 import { AddIcon, MinusIcon } from '@chakra-ui/icons'
 import Input from '@/components/Input'
@@ -53,10 +52,7 @@ const AddEditCard: FC<IProps> = props => {
 
   const onClick = (e: any) => setValue('location', e.get('coords'))
 
-  const inputs: TInputType[] = [
-    { name: 'name', isRequired: true },
-    { name: 'phone', isRequired: true },
-  ]
+  const inputs: TInputType[] = [{ name: 'name' }, { name: 'phone', isRequired: true }]
 
   return (
     <Box>

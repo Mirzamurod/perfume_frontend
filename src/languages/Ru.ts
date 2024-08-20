@@ -182,6 +182,10 @@ const ru = {
   edit_setting: 'Изменить настройку',
   add_setting: 'Добавить настройку',
   username: 'Username (telegram)',
+  copy_link: 'Копировать ссылку',
+  submit: 'Отправить',
+  added_settings: 'Настройка успешно добавлена',
+  edited_settings: 'Настройка успешно изменена',
 }
 
 export default ru

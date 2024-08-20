@@ -23,7 +23,7 @@ export type TOrder = {
 }
 
 export type TOrderForm = {
-  name: string
+  name?: string
   phone: string
   payment_method: TPaymentMethod
   location?: number[]
@@ -32,6 +32,14 @@ export type TOrderForm = {
   address?: string
   status: TOrderStatus
   perfumes: { qty: number; id: string }[]
+}
+
+export type TOrderFormLink = {
+  name?: string
+  phone: string
+  payment_method: TPaymentMethod
+  delivery_date?: string
+  count?: number
 }
 
 export type TPaymentMethod = 'cash' | 'card'

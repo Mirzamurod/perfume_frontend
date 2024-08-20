@@ -9,8 +9,8 @@ import * as yup from 'yup'
 import { Box, Button, Heading, Stack } from '@chakra-ui/react'
 import { getProducts } from '@/store/product'
 import { useAppSelector } from '@/store'
-import AddEditCard from '@/view/purchase-product/AddEditCard'
-import AddEditAction from '@/view/purchase-product/AddEditAction'
+import AddEditCard from '@/view/purchased-product/AddEditCard'
+import AddEditAction from '@/view/purchased-product/AddEditAction'
 import { TPurchasedProductForm } from '@/types/purchasedProduct'
 import {
   addPurchasedProduct,

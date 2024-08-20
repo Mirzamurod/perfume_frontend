@@ -22,7 +22,7 @@ const AddEditOrder = () => {
   const toast = useToast()
   const [count, setCount] = useState<number[]>([])
   const formSchema = yup.object().shape({
-    name: yup.string().required(t('name_required')),
+    name: yup.string(),
     phone: yup.string().required(t('phone_required')),
     payment_method: yup
       .mixed<TPaymentMethod>()

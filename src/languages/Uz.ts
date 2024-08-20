@@ -182,6 +182,10 @@ const uz = {
   edit_setting: 'Sozlamani tahrirlash',
   add_setting: "Sozlamani qo'shish",
   username: 'Username (telegram)',
+  copy_link: 'Havolani nusxalash',
+  submit: 'Yuborish',
+  added_settings: 'Sozlama muvaffaqiyatli kiritildi',
+  edited_settings: "Sozlama muvaffaqiyatli o'zgartirildi",
 }
 
 export default uz
