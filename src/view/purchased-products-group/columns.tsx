@@ -22,11 +22,18 @@ const columns: TColumns[] = [
       const [clicked, setClicked] = useState(false)
       const { user } = useAppSelector(state => state.login)
 
+      const selectText = (text: string) => {
+        const input = document.createElement('textarea')
+        input.value = text
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand('copy')
+        document.body.removeChild(input)
+      }
+
       function onClick() {
         // if (typeof navigator !== 'undefined' && navigator.clipboard) {
-        navigator.clipboard.writeText(
-          `http://localhost:3000/add-order?user=${user?._id}&product=${row._id}`
-        )
+        selectText(`http://localhost:3000/add-order?user=${user?._id}&product=${row._id}`)
         setClicked(true)
 
         setTimeout(() => {
