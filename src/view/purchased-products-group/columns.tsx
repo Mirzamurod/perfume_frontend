@@ -23,7 +23,7 @@ const columns: TColumns[] = [
       const { user } = useAppSelector(state => state.login)
 
       const onClick = () => {
-        if (typeof window !== 'undefined') {
+        if (typeof navigator !== 'undefined' && navigator.clipboard) {
           navigator.clipboard.writeText(
             `http://localhost:3000/add-order?user=${user?._id}&product=${row._id}`
           )
