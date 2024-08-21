@@ -5,6 +5,7 @@ import { TPurchasedProduct } from '@/types/purchasedProduct'
 import { CheckIcon, LinkIcon } from '@chakra-ui/icons'
 import { t } from '@/languages/Eng'
 import { useAppSelector } from '@/store'
+import { useRouter } from 'next/router'
 
 const columns: TColumns[] = [
   {
@@ -32,14 +33,12 @@ const columns: TColumns[] = [
       }
 
       function onClick() {
-        // if (typeof navigator !== 'undefined' && navigator.clipboard) {
-        selectText(`http://localhost:3000/add-order?user=${user?._id}&product=${row._id}`)
+        selectText(`${window?.location?.origin}/add-order?user=${user?._id}&product=${row._id}`)
         setClicked(true)
 
         setTimeout(() => {
           setClicked(false)
         }, 1000)
-        // }
       }
 
       return (
