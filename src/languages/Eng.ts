@@ -188,6 +188,7 @@ const eng = {
   submit: 'Submit',
   added_settings: 'Setting successfully added',
   edited_settings: 'Setting successfully edited',
+  copied_link: 'Copied link',
 }
 
 export type TranslationKeys = keyof typeof eng

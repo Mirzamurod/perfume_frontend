@@ -24,6 +24,7 @@ export const getproductgroups = 'product-group'
 // order
 export const getorders = 'order'
 export const getorder = 'order/'
+export const addorderlink = 'order/link/'
 
 // supplier
 export const getsuppliers = 'supplier'

@@ -186,6 +186,7 @@ const ru = {
   submit: 'Отправить',
   added_settings: 'Настройка успешно добавлена',
   edited_settings: 'Настройка успешно изменена',
+  copied_link: 'Скопированная ссылка',
 }
 
 export default ru

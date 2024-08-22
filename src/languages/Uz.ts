@@ -186,6 +186,7 @@ const uz = {
   submit: 'Yuborish',
   added_settings: 'Sozlama muvaffaqiyatli kiritildi',
   edited_settings: "Sozlama muvaffaqiyatli o'zgartirildi",
+  copied_link: 'Nusxa olindi',
 }
 
 export default uz

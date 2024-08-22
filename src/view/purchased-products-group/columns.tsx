@@ -42,7 +42,7 @@ const columns: TColumns[] = [
       }
 
       return (
-        <Tooltip label={t('copy_link')}>
+        <Tooltip label={t(clicked ? 'copied_link' : 'copy_link')}>
           <IconButton
             aria-label='Copy'
             icon={clicked ? <CheckIcon /> : <LinkIcon />}

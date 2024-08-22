@@ -12,6 +12,7 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -34,6 +35,7 @@ import { useLanguage } from '@/context/LanguageContext'
 import Input from '@/components/Input'
 import { TOrderFormLink, TPaymentMethod } from '@/types/order'
 import { TInputType } from '@/types/input'
+import { addOrderLink } from '@/store/order'
 
 const AddOrder = () => {
   const router = useRouter()
@@ -70,7 +72,7 @@ const AddOrder = () => {
   } = methods
 
   const { isLoading } = useAppSelector(state => state.order)
-  const { purchased_product } = useAppSelector(state => state.purchased_product)
+  const { purchased_product, isLoading: loading } = useAppSelector(state => state.purchased_product)
 
   const selectLang = ({ lang, name }: Language) => {
     i18next.changeLanguage(lang)
@@ -80,7 +82,7 @@ const AddOrder = () => {
   const inputs: TInputType[] = [
     { name: 'phone', isRequired: true },
     { name: 'name' },
-    { name: 'count', type: 'number' },
+    { name: 'count', type: 'number', max: purchased_product?.count },
     { name: 'delivery_date', type: 'date' },
   ]
 
@@ -89,11 +91,18 @@ const AddOrder = () => {
       dispatch(getPurchasedProductOrder(router.query as { user: string; product: string }))
   }, [router.query])
 
-  const onSubmit = (values: TOrderFormLink) => console.log('hello')
+  const onSubmit = (values: TOrderFormLink) =>
+    dispatch(
+      addOrderLink({
+        ...values,
+        user: router.query.user as string,
+        product: purchased_product?.product._id!,
+      })
+    )
 
   return (
     <FormProvider {...methods}>
-      <Box __css={{ display: 'flex', alignItems: 'center', height: '100vh' }}>
+      <Flex height='100vh' alignItems='center'>
         <Container>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
@@ -149,7 +158,7 @@ const AddOrder = () => {
                 type='submit'
                 variant='outline'
                 colorScheme='teal'
-                isLoading={isLoading}
+                isLoading={isLoading || loading}
                 loadingText={t('login')}
               >
                 {t('submit')}
@@ -157,7 +166,7 @@ const AddOrder = () => {
             </Stack>
           </form>
         </Container>
-      </Box>
+      </Flex>
     </FormProvider>
   )
 }

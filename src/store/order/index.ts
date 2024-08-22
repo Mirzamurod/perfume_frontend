@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { perfume, getorders, getorder } from '@/store/apis'
-import { TOrderForm, TOrderState } from '@/types/order'
+import { perfume, getorders, getorder, addorderlink } from '@/store/apis'
+import { TOrderForm, TOrderFormLink, TOrderState } from '@/types/order'
 
 const initialState: TOrderState = {
   isLoading: false,
@@ -85,6 +85,16 @@ export const getOrder = (id: string) =>
 export const addOrder = (data: TOrderForm) =>
   perfume({
     url: getorders,
+    method: 'post',
+    data,
+    onStart: order.actions.onStartAddEditOrder.type,
+    onSuccess: order.actions.onSuccessAddEditOrder.type,
+    onFail: order.actions.onFailAddEditOrder.type,
+  })
+
+export const addOrderLink = (data: TOrderFormLink & { user: string; product: string }) =>
+  perfume({
+    url: addorderlink + data.user,
     method: 'post',
     data,
     onStart: order.actions.onStartAddEditOrder.type,
