@@ -65,13 +65,11 @@ const AddOrder = () => {
   })
   const {
     handleSubmit,
-    setValue,
-    setError,
     register,
     formState: { errors },
   } = methods
 
-  const { isLoading } = useAppSelector(state => state.order)
+  const { isLoading, success } = useAppSelector(state => state.order)
   const { purchased_product, isLoading: loading } = useAppSelector(state => state.purchased_product)
 
   const selectLang = ({ lang, name }: Language) => {
@@ -85,6 +83,10 @@ const AddOrder = () => {
     { name: 'count', type: 'number', max: purchased_product?.count },
     { name: 'delivery_date', type: 'date' },
   ]
+
+  useEffect(() => {
+    if (success) router.replace('/success')
+  }, [success])
 
   useEffect(() => {
     if (Object.keys(router.query).length)
