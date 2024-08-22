@@ -28,7 +28,17 @@ const middleware =
     dispatch({ type: onStart })
 
     // @ts-ignore
-    axios({ baseURL, method, data, url, params, headers })
+    axios({
+      baseURL:
+        window?.location?.hostname === 'localhost'
+          ? 'http://localhost:5000/api/'
+          : 'http://206.189.109.20:9090/api/',
+      method,
+      data,
+      url,
+      params,
+      headers,
+    })
       .then(res => {
         if (res.status === 200 || res.status === 201) {
           dispatch({ type: onSuccess, payload: res.data })
