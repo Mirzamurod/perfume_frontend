@@ -1,7 +1,7 @@
 import { ThemeConfig } from '@/types/themeConfig'
 
 const themeConfig: ThemeConfig = {
-  app: { name: 'eltop' },
+  app: { name: 'Perfume' },
   mode: 'light',
   routingLoader: true,
   themeColor: '#288afd',
