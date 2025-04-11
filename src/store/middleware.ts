@@ -29,10 +29,7 @@ const middleware =
 
     // @ts-ignore
     axios({
-      baseURL:
-        window?.location?.hostname === 'localhost'
-          ? 'http://localhost:5000/api/'
-          : 'http://206.189.109.20:9090/api/',
+      baseURL,
       method,
       data,
       url,
